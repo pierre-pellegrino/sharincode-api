@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   include PostsHelper
 
-  #before_action :authenticate_user!, only: %i[create update destroy]
+  before_action :authenticate_user!, only: %i[create update destroy]
   before_action :set_post, only: %i[show update destroy]
 
   def index
@@ -20,7 +20,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    @post.user = User.first
+    @post.user = current_user
     if @post.save
       params[:snippets].each do |snippet|
         snip = Snippet.new(content: snippet[:content], post: @post)
