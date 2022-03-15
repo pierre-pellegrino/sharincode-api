@@ -61,15 +61,19 @@ user4 = User.create(
     Use Array.prototype.map() to map each element to the value returned by fn.
     Use Array.prototype.reduce() to add each value to an accumulator, initialized with a value of 0.
     Divide the resulting array by its length.",
-  )
+    )
+end
+
+100.times do |i|
+  loading_bar(i + 1, 100, 'creating snippets')
   Snippet.create(
     content: "const averageBy = (arr, fn) =>
-      arr
-        .map(typeof fn === 'function' ? fn : val => val[fn])
-        .reduce((acc, val) => acc + val, 0) / arr.length;
+    arr
+      .map(typeof fn === 'function' ? fn : val => val[fn])
+      .reduce((acc, val) => acc + val, 0) / arr.length;
 
     averageBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], o => o.n); // 5
     averageBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], 'n'); // 5",
-    post: post
+    post: Post.all[rand(Post.all.length)]
   )
 end
