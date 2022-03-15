@@ -3,6 +3,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   private
 
+  def sign_up_params
+    params.require(:user).permit(:username, :email, :password)
+  end
+  
+  # CHANGEMENT DU MOT DE PASSE
+  # def account_update_params
+  #   params.require(:user).permit(:username, :email, :password, :passord_confirmation, :current_password)
+  # end
+
   def respond_with(resource, _opts = {})
     register_success && return if resource.persisted?
 
