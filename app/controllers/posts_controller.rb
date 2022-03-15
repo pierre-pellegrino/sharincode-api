@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   include PostsHelper
 
-  before_action :authenticate_user!, only: %i[create update destroy]
+  #before_action :authenticate_user!, only: %i[create update destroy]
   before_action :set_post, only: %i[show update destroy]
 
   def index
@@ -18,7 +18,31 @@ class PostsController < ApplicationController
     render_post_json(@post, @snippets)
   end
 
-  def create; end
+  def create
+    @post = Post.new(post_params)
+    @post.user = User.first
+    if @post.save
+      params[:snippets].each do |snippet|
+        snip = Snippet.new(content: snippet[:content], post: @post)
+        unless snip.save
+          render json: {
+            error: {
+              title: "quelque chose c'est mal passé",
+              message: snippet.errors.full_messages.join('; ')
+            }
+          }
+        end
+      end
+      render_post_json(@post, Snippet.where(post_id: @post.id))
+    else
+      render json: {
+        error: {
+          title: "quelque chose c'est mal passé",
+          message: @post.errors.full_messages.join('; ')
+        }
+      }
+    end
+  end
 
   def update; end
 
