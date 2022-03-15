@@ -44,9 +44,27 @@ class PostsController < ApplicationController
     end
   end
 
-  def update; end
+  def update
+    unauthorized_user_error && return if current_user.id != @post.user_id
 
-  def destroy; end
+    if @post.update(post_params)
+      params[:snippets].each do |snippet|
+        if snippet.destroy
+          Snippet.find(snippet.id).destroy!
+        else
+          Snippet.find(snippet.id).update(content: snippet[:content])
+        end
+      end
+    end
+    render_post_json(@post, Snippet.where(post_id: @post.id))
+  end
+
+  def destroy
+    unauthorized_user_error && return if current_user.id != @post.user_id
+
+    @post.destroy
+    Snippet.where(post_id: @post.id).each(&:destroy)
+  end
 
   private
 
