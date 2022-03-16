@@ -78,6 +78,7 @@ end
 
     averageBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], o => o.n); // 5
     averageBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], 'n'); // 5",
-    post: Post.all[rand(Post.all.length)]
+    post: Post.all[rand(Post.all.length)],
+    language: Faker::ProgrammingLanguage.name
   )
 end
