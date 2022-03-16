@@ -4,7 +4,6 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
-  get '/profiles', to: 'profiles#show'
-
+  resources :profiles, only: %i[show update]
   resources :posts, except: %i[new edit]
 end
