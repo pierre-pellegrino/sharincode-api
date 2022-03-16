@@ -1,2 +1,2 @@
 # HEROKU PRODUCTION LINK
-https://sharincode-api.herokuapp.com/
+https://snipshare-api.herokuapp.com/
