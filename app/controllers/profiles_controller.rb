@@ -9,7 +9,6 @@ class ProfilesController < ApplicationController
   end
 
   def update
-    puts current_user
     if current_user.update(user_params)
       render_user_json
     else
