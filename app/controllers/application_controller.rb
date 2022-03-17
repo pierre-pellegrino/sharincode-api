@@ -14,10 +14,11 @@ class ApplicationController < ActionController::API
              end
     render json: {
       message: message,
-      id: current_user.id,
-      email: current_user.email,
-      username: current_user.username || nil,
-      avatar: avatar
+      user: current_user
+      # id: current_user.id,
+      # email: current_user.email,
+      # username: current_user.username || nil,
+      # avatar: avatar
     }, status: :ok
   end
 end

@@ -12,7 +12,7 @@ class ProfilesController < ApplicationController
 
   def update
     if current_user.update(user_params)
-      render_user_json
+      render_user_json('Profile updated !')
     else
       error_formatter(current_user)
     end
@@ -28,6 +28,6 @@ class ProfilesController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:username)
+    params.require(:user).permit(:username, :description, :github_url, :personal_url, :favorite_theme)
   end
 end
