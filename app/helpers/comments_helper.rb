@@ -1,6 +1,6 @@
 module CommentsHelper
   def format_comment(comment)
-    avatar = rails_blob_url(post.user.avatar) if post.user.avatar.attached?
+    avatar = rails_blob_url(comment.user.avatar) if comment.user.avatar.attached?
     {
       comment: {
         id: comment.id,
