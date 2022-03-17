@@ -3,8 +3,10 @@ class ProfilesController < ApplicationController
 
   def show
     user = get_user_from_token
+    avatar = rails_blob_url(user.avatar) if user.avatar.attached?
     render json: {
-      user: user
+      user: user,
+      avatar: avatar
     }
   end
 

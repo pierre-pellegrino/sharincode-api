@@ -18,10 +18,10 @@ user1 = User.create(
   password: "password",
   username: "Bobo L'Asticot"
 )
-# user1.avatar.attach(
-#   io: File.open(Rails.root.join('app', 'assets', "avatar1.jpg")),
-#   filename: 'avatar.jpg'
-# )
+user1.avatar.attach(
+  io: File.open(Rails.root.join('app', 'assets', 'images', "avatar1.jpg")),
+  filename: 'avatar.jpg'
+)
 
 loading_bar(2, 4, 'creating users')
 user2 = User.create(
@@ -29,10 +29,10 @@ user2 = User.create(
   password: "password",
   username: "The Front Maniac"
 )
-# user2.avatar.attach(
-#   io: File.open(Rails.root.join('app', 'assets', "avatar2.jpg")),
-#   filename: 'avatar.jpg'
-# )
+user2.avatar.attach(
+  io: File.open(Rails.root.join('app', 'assets', 'images', "avatar2.jpg")),
+  filename: 'avatar.jpg'
+)
 
 loading_bar(3, 4, 'creating users')
 user3 = User.create(
@@ -40,10 +40,10 @@ user3 = User.create(
   password: "password",
   username: "The Awakening Sleeper"
 )
-# user3.avatar.attach(
-#   io: File.open(Rails.root.join('app', 'assets', "avatar3.jpg")),
-#   filename: 'avatar.jpg'
-# )
+user3.avatar.attach(
+  io: File.open(Rails.root.join('app', 'assets', 'images', "avatar3.jpg")),
+  filename: 'avatar.jpg'
+)
 
 loading_bar(4, 4, 'creating users')
 user4 = User.create(
@@ -51,10 +51,10 @@ user4 = User.create(
   password: "password",
   username: "The Back Maniac"
 )
-# user4.avatar.attach(
-#   io: File.open(Rails.root.join('app', 'assets', "avatar4.jpg")),
-#   filename: 'avatar.jpg'
-# )
+user4.avatar.attach(
+  io: File.open(Rails.root.join('app', 'assets', 'images', "avatar4.jpg")),
+  filename: 'avatar.jpg'
+)
 
 30.times do |i|
   loading_bar(i + 1, 30, 'creating posts')

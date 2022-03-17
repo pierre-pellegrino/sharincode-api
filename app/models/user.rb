@@ -7,4 +7,5 @@ class User < ApplicationRecord
          jwt_revocation_strategy: JwtDenylist
 
   has_many :posts
+  has_one_attached :avatar
 end
