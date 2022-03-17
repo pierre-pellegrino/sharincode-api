@@ -12,7 +12,7 @@ amazon:
   access_key_id: <%= Rails.application.credentials.dig(:aws, :s3_public_key) %>
   secret_access_key: <%= Rails.application.credentials.dig(:aws, :s3_public_key) %>
   region: eu-west-3
-  bucket: shnipshare-as
+  bucket: snipshare-as
 
 # Remember not to checkin your GCS keyfile to a repository
 # google:
