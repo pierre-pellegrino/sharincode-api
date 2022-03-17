@@ -126,9 +126,12 @@ tags = %W[
   Testing
 ]
 
-11.times do |i|
-  loading_bar(i + 1, 11, 'ceating tags')
-  Tag.create(
-    title: tags.sample(1)
-  )
+tags.each do |tag|
+  myTag = Tag.create(title: tag)
+  puts 'New Tag: ' + myTag.title
+  3.times do 
+    myPost = Post.all[rand(Post.all.length)]
+    PostTag.create(post: myPost, tag: myTag)
+    puts 'PostTag relation created between the post ' + myPost.id.to_s + ' and the tag ' + myTag.title
+  end
 end
