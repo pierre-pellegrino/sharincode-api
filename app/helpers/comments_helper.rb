@@ -1,7 +1,7 @@
 module CommentsHelper
-  def render_comment_json(comment)
+  def format_comment(comment)
     avatar = rails_blob_url(post.user.avatar) if post.user.avatar.attached?
-    render json: {
+    {
       comment: {
         id: comment.id,
         content: comment.content,
@@ -11,6 +11,10 @@ module CommentsHelper
         avatar: avatar
       }
     }
+  end
+
+  def render_comment_json(comment)
+    render json: format_comment(comment)
   end
 
   def unauthorized_user_error

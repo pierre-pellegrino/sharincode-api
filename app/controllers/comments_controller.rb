@@ -4,6 +4,16 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!, only: %i[create update destroy]
   before_action :set_comment, only: %i[update delete]
 
+  def index
+    @comments = []
+    Post.find(params[:post_id]).comments.each do |comment|
+      @comment << format_comment(comment)
+    end
+    render json: {
+      comments: @comments
+    }
+  end
+
   def create
     @comment = Comment.new(comment_params)
     error_formatter(@comment) && return unless @comment.save
