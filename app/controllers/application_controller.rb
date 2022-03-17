@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+  
   def error_formatter(resource, status = :unprocessable_entity)
     render json: {
       error: {
@@ -8,17 +9,13 @@ class ApplicationController < ActionController::API
     }, status: status
   end
 
-  def render_user_json(message = nil)
-    avatar = if current_user.avatar.attached?
-               rails_blob_url(current_user.avatar)
-             end
+  def render_user(message = nil)
+    avatar = rails_blob_url(current_user.avatar) if current_user.avatar.attached?
     render json: {
       message: message,
-      user: current_user
-      # id: current_user.id,
-      # email: current_user.email,
-      # username: current_user.username || nil,
-      # avatar: avatar
+      user: current_user,
+      avatar: avatar
     }, status: :ok
   end
+
 end

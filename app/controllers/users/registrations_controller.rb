@@ -7,22 +7,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
     params.require(:user).permit(:username, :email, :password)
   end
 
-  # CHANGEMENT DU MOT DE PASSE
-  # def account_update_params
-  #   params.require(:user).permit(:username, :email, :password, :passord_confirmation, :current_password)
-  # end
-
   def respond_with(resource, _opts = {})
     register_success && return if resource.persisted?
-
-    register_failed
+    error_formatter(resource)
   end
 
   def register_success
-    render_user_json('Signed up sucessfully.')
+    render_user('New user sucessfully registered !')
   end
 
-  def register_failed
-    error_formatter(resource)
-  end
 end
