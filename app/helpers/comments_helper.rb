@@ -12,4 +12,12 @@ module CommentsHelper
       }
     }
   end
+
+  def unauthorized_user_error
+    render json: {
+      error: {
+        title: "Vous n'etes pas authorisé a editer ou supprimer un commentaire ne vous appartenant pas"
+      }
+    }
+  end
 end
