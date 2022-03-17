@@ -7,7 +7,7 @@ class PostsController < ApplicationController
   def index
     @posts = []
     Post.all.order('created_at desc').each do |post|
-      @posts << format_post(post, Snippet.where(post_id: post.id))
+      @posts << format_post(post)
     end
     render json: {
       posts: @posts
@@ -15,7 +15,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    render_post_json(@post, @snippets)
+    render_post_json(@post)
   end
 
   def create
@@ -33,7 +33,7 @@ class PostsController < ApplicationController
           }
         end
       end
-      render_post_json(@post, Snippet.where(post_id: @post.id))
+      render_post_json(@post)
     else
       render json: {
         error: {
@@ -56,7 +56,7 @@ class PostsController < ApplicationController
         end
       end
     end
-    render_post_json(@post, Snippet.where(post_id: @post.id))
+    render_post_json(@post)
   end
 
   def destroy
@@ -70,7 +70,6 @@ class PostsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:id])
-    @snippets = Snippet.where(post_id: @post.id)
   end
 
   def post_params

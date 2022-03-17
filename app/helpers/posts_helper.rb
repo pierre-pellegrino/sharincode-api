@@ -1,13 +1,18 @@
 module PostsHelper
-  def format_post(post, snippets)
+  def format_post(post)
     {
-      post: post,
-      snippets: snippets
+      post: {
+        id: post.id,
+        description: post.description,
+        created_at: post.created_at,
+        updated_at: post.updated_at,
+        snippets: post.snippets
+      }
     }
   end
 
-  def render_post_json(post, snippets)
-    render json: format_post(post, snippets)
+  def render_post_json(post)
+    render json: format_post(post)
   end
 
   def unauthorized_user_error
