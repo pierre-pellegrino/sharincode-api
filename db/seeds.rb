@@ -5,12 +5,14 @@ def loading_bar(i, total, action)
   puts "#{i * 100 / total}% [#{'#' * count}#{' ' * (50 - count)}]"
 end
 
-loading_bar(1, 3, 'cleaning db')
+loading_bar(1, 4, 'cleaning db')
 User.destroy_all
-loading_bar(2, 3, 'cleaning db')
+loading_bar(2, 4, 'cleaning db')
 Post.destroy_all
-loading_bar(3, 3, 'cleaning db')
+loading_bar(3, 4, 'cleaning db')
 Snippet.destroy_all
+loading_bar(4, 4, 'cleaning db')
+Comment.destroy_all
 
 loading_bar(1, 4, 'creating users')
 user1 = User.create(
@@ -97,5 +99,14 @@ languages = %w[
     averageBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], 'n'); // 5",
     post: Post.all[rand(Post.all.length)],
     language: languages.sample(1)
+  )
+end
+
+100.times do |i|
+  loading_bar(i + 1, 100, 'creating comments')
+  Comment.create(
+    content: Faker::Lorem.paragraph,
+    user: User.all[rand(User.all.length)],
+    post: Post.all[rand(Post.all.length)]
   )
 end
