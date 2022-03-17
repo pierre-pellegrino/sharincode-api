@@ -5,14 +5,17 @@ def loading_bar(i, total, action)
   puts "#{i * 100 / total}% [#{'#' * count}#{' ' * (50 - count)}]"
 end
 
-loading_bar(1, 4, 'cleaning db')
+loading_bar(1, 5, 'cleaning db')
 User.destroy_all
-loading_bar(2, 4, 'cleaning db')
+loading_bar(2, 5, 'cleaning db')
 Post.destroy_all
-loading_bar(3, 4, 'cleaning db')
+loading_bar(3, 5, 'cleaning db')
 Snippet.destroy_all
-loading_bar(4, 4, 'cleaning db')
+loading_bar(4, 5, 'cleaning db')
 Comment.destroy_all
+loading_bar(5, 5, 'cleaning db')
+Tag.destroy_all
+
 
 loading_bar(1, 4, 'creating users')
 user1 = User.create(
@@ -107,5 +110,25 @@ end
     content: Faker::Lorem.paragraph,
     user: User.all[rand(User.all.length)],
     post: Post.all[rand(Post.all.length)]
+  )
+end
+
+tags = %W[
+  Web
+  FrontEnd
+  BackEnd
+  Database
+  Components
+  Design
+  Efficiency
+  Scalability
+  Deploy
+  Testing
+]
+
+11.times do |i|
+  loading_bar(i + 1, 11, 'ceating tags')
+  Tag.create(
+    title: tags.sample(1)
   )
 end
