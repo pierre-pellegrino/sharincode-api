@@ -7,7 +7,7 @@ class PostsController < ApplicationController
   def index
     @posts = []
     Post.all.order('created_at desc').each do |post|
-      @posts << format_post(post, Snippet.where(post_id: post.id))
+      @posts << format_post(post)
     end
     render json: {
       posts: @posts
@@ -15,33 +15,20 @@ class PostsController < ApplicationController
   end
 
   def show
-    render_post_json(@post, @snippets)
+    render_post_json(@post)
   end
 
   def create
     @post = Post.new(post_params)
     @post.user = current_user
-    if @post.save
-      params[:snippets].each do |snippet|
-        snip = Snippet.new(content: snippet[:content], post: @post)
-        unless snip.save
-          render json: {
-            error: {
-              title: "quelque chose c'est mal passé",
-              message: snippet.errors.full_messages.join('; ')
-            }
-          }
-        end
-      end
-      render_post_json(@post, Snippet.where(post_id: @post.id))
-    else
-      render json: {
-        error: {
-          title: "quelque chose c'est mal passé",
-          message: @post.errors.full_messages.join('; ')
-        }
-      }
+    error_formatter(@post) && return unless @post.save
+
+    params[:snippets].each do |snippet|
+      snip = Snippet.new(content: snippet[:content], post: @post)
+      error_formatter(snippet) unless snip.save
     end
+
+    render_post_json(@post)
   end
 
   def update
@@ -49,14 +36,14 @@ class PostsController < ApplicationController
 
     if @post.update(post_params)
       params[:snippets].each do |snippet|
-        if snippet.destroy
+        if snippet[:destroy] == true
           Snippet.find(snippet.id).destroy!
         else
           Snippet.find(snippet.id).update(content: snippet[:content])
         end
       end
     end
-    render_post_json(@post, Snippet.where(post_id: @post.id))
+    render_post_json(@post)
   end
 
   def destroy
@@ -70,7 +57,6 @@ class PostsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:id])
-    @snippets = Snippet.where(post_id: @post.id)
   end
 
   def post_params

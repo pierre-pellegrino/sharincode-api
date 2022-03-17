@@ -68,6 +68,23 @@ user4.avatar.attach(
     )
 end
 
+languages = %w[
+  Bash
+  CSS
+  Plain Text
+  HTML/XML
+  JavaScript
+  JSON
+  JSX
+  Markdown
+  MySQL
+  Ruby
+  Sass
+  TSX
+  TypeScript
+  YAML
+]
+
 100.times do |i|
   loading_bar(i + 1, 100, 'creating snippets')
   Snippet.create(
@@ -79,6 +96,6 @@ end
     averageBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], o => o.n); // 5
     averageBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], 'n'); // 5",
     post: Post.all[rand(Post.all.length)],
-    language: Faker::ProgrammingLanguage.name
+    language: languages.sample(1)
   )
 end
