@@ -16,6 +16,8 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(comment_params)
+    @comment.user = current_user
+    @comment.post = Post.find(params[:post_id])
     error_formatter(@comment) && return unless @comment.save
 
     render_comment_json(@comment)
