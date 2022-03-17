@@ -5,5 +5,7 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
   resources :profiles, only: %i[index update]
-  resources :posts, except: %i[new edit]
+  resources :posts, only: %i[index show update create destroy] do
+    resources :comments, only: %i[update create destroy]
+  end
 end
