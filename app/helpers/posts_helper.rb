@@ -1,4 +1,22 @@
 module PostsHelper
+  def format_comments(comments)
+    result = []
+    comments.each do |comment|
+      avatar = rails_blob_url(comment.user.avatar) if comment.user.avatar.attached?
+      result << {
+        comment: {
+          id: comment.id,
+          content: comment.content,
+          created_at: comment.created_at,
+          updated_at: comment.updated_at,
+          username: comment.user.username,
+          avatar: avatar
+        }
+      }
+    end
+    result
+  end
+
   def format_post(post)
     avatar = rails_blob_url(post.user.avatar) if post.user.avatar.attached?
     {
@@ -12,6 +30,7 @@ module PostsHelper
           avatar: avatar
         },
         snippets: post.snippets,
+        comments: format_comments(post.comments)
       }
     }
   end
