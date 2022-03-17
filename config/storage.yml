@@ -10,7 +10,7 @@ local:
 amazon:
   service: S3
   access_key_id: <%= Rails.application.credentials.dig(:aws, :s3_public_key) %>
-  secret_access_key: <%= Rails.application.credentials.dig(:aws, :s3_public_key) %>
+  secret_access_key: <%= Rails.application.credentials.dig(:aws, :s3_secret_key) %>
   region: eu-west-3
   bucket: snipshare-as
 
