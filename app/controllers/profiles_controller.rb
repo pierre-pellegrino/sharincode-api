@@ -1,13 +1,13 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
 
-  def show
+  def index
     user = get_user_from_token
     avatar = rails_blob_url(user.avatar) if user.avatar.attached?
     render json: {
       user: user,
       avatar: avatar
-    }
+    }, status: ok
   end
 
   def update
