@@ -1,4 +1,8 @@
 FactoryBot.define do
+  factory :tag do
+    title { "MyString" }
+  end
+
   factory :random_user, class: User do
     email { Faker::Internet.email }
     password { "password" }
