@@ -7,7 +7,7 @@ class ProfilesController < ApplicationController
     render json: {
       user: user,
       avatar: avatar
-    }, status: ok
+    }, status: :ok
   end
 
   def update
