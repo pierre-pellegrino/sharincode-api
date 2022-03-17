@@ -30,7 +30,7 @@ module PostsHelper
           avatar: avatar
         },
         snippets: post.snippets,
-        comments: format_comments(post.comments)
+        comments: format_comments(post.comments.order('created_at desc'))
       }
     }
   end

@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
 
   def index
     @comments = []
-    Post.find(params[:post_id]).comments.each do |comment|
+    Post.find(params[:post_id]).comments.order('created_at desc').each do |comment|
       @comments << format_comment(comment)
     end
     render json: {
