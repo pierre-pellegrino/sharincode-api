@@ -24,7 +24,7 @@ class PostsController < ApplicationController
     error_formatter(@post) && return unless @post.save
 
     params[:snippets].each do |snippet|
-      snip = Snippet.new(content: snippet[:content], post: @post)
+      snip = Snippet.new(content: snippet[:content], language: snippet[:language], post: @post)
       error_formatter(snippet) unless snip.save
     end
 
@@ -39,7 +39,7 @@ class PostsController < ApplicationController
         if snippet[:destroy] == true
           Snippet.find(snippet.id).destroy!
         else
-          Snippet.find(snippet.id).update(content: snippet[:content])
+          Snippet.find(snippet.id).update(content: snippet[:content], language: snippet[:language])
         end
       end
     end
