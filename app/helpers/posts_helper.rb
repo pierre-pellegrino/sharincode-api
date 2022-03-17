@@ -1,12 +1,17 @@
 module PostsHelper
   def format_post(post)
+    avatar = rails_blob_url(post.user.avatar) if post.user.avatar.attached?
     {
       post: {
         id: post.id,
         description: post.description,
         created_at: post.created_at,
         updated_at: post.updated_at,
-        snippets: post.snippets
+        user: {
+          username: post.user.username,
+          avatar: avatar
+        },
+        snippets: post.snippets,
       }
     }
   end
