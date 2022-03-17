@@ -6,7 +6,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def sign_up_params
     params.require(:user).permit(:username, :email, :password)
   end
-  
+
   # CHANGEMENT DU MOT DE PASSE
   # def account_update_params
   #   params.require(:user).permit(:username, :email, :password, :passord_confirmation, :current_password)
@@ -19,10 +19,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def register_success
-    render json: {
-      message: 'Signed up sucessfully.',
-      user: current_user
-    }, status: :ok
+    render_user_json('Signed up sucessfully.')
   end
 
   def register_failed
