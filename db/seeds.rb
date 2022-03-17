@@ -18,7 +18,11 @@ loading_bar(1, 4, 'creating users')
 user1 = User.create(
   email: 'b@yopmail.com',
   password: "password",
-  username: "Bobo L'Asticot"
+  username: "Bobo L'Asticot",
+  description: "Ceci est ma description",
+  github_url: "https://github.com/Beygs",
+  personal_url: "portfolio",
+  favorite_theme: "darkTheme"
 )
 user1.avatar.attach(
   io: File.open(Rails.root.join('app', 'assets', 'images', "avatar1.jpg")),
@@ -29,7 +33,11 @@ loading_bar(2, 4, 'creating users')
 user2 = User.create(
   email: 'p@yopmail.com',
   password: "password",
-  username: "The Front Maniac"
+  username: "The Front Maniac",
+  description: "Ceci est ma description",
+  github_url: "https://github.com/pierre-pellegrino",
+  personal_url: "portfolio",
+  favorite_theme: "darkTheme"
 )
 user2.avatar.attach(
   io: File.open(Rails.root.join('app', 'assets', 'images', "avatar2.jpg")),
@@ -40,7 +48,11 @@ loading_bar(3, 4, 'creating users')
 user3 = User.create(
   email: 't@yopmail.com',
   password: "password",
-  username: "The Awakening Sleeper"
+  username: "The Awakening Sleeper",
+  description: "Ceci est ma description",
+  github_url: "https://github.com/TimotheeGimbert",
+  personal_url: "portfolio",
+  favorite_theme: "darkTheme"
 )
 user3.avatar.attach(
   io: File.open(Rails.root.join('app', 'assets', 'images', "avatar3.jpg")),
@@ -51,7 +63,12 @@ loading_bar(4, 4, 'creating users')
 user4 = User.create(
   email: 'a@yopmail.com',
   password: "password",
-  username: "The Back Maniac"
+  username: "The Back Maniac",
+  username: "The Awakening Sleeper",
+  description: "Ceci est ma description",
+  github_url: "https://github.com/talmidiel",
+  personal_url: "portfolio",
+  favorite_theme: "darkTheme"
 )
 user4.avatar.attach(
   io: File.open(Rails.root.join('app', 'assets', 'images', "avatar4.jpg")),
