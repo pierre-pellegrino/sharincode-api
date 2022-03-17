@@ -73,7 +73,6 @@ end
 languages = %w[
   Bash
   CSS
-  Plain Text
   HTML/XML
   JavaScript
   JSON
