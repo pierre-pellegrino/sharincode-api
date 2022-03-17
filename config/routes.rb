@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'post_tags/show'
+  get 'post_tags/update'
   devise_for :users,
   controllers: {
     sessions: 'users/sessions',
