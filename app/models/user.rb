@@ -9,4 +9,12 @@ class User < ApplicationRecord
   has_many :posts
   has_many :comments
   has_one_attached :avatar
+
+  validates :username,
+  uniqueness: true,
+  length: { 
+    minimum: 4,
+    maximum: 36 
+  }
+
 end
