@@ -87,7 +87,8 @@ user4.avatar.attach(
     Use Array.prototype.map() to map each element to the value returned by fn.
     Use Array.prototype.reduce() to add each value to an accumulator, initialized with a value of 0.
     Divide the resulting array by its length.",
-    )
+  )
+  Snippet.create(content: 'initial snipper', post: post, language: 'CSS')
 end
 
 languages = %w[
