@@ -1,22 +1,21 @@
 class ApplicationController < ActionController::API
+  
   def error_formatter(resource, status = :unprocessable_entity)
     render json: {
       error: {
-        title: "une erreur s'est produite",
+        title: "An error occured !",
         message: resource.errors.full_messages.join('; ')
       }
     }, status: status
   end
 
-  def render_user_json
-    # avatar = if current_user.avatar.attached?
-    #            rails_blob_url(current_user.avatar)
-    #          end
+  def render_user(message = nil)
+    avatar = rails_blob_url(current_user.avatar) if current_user.avatar.attached?
     render json: {
-      id: current_user.id,
-      email: current_user.email,
-      username: current_user.username || nil,
-      # avatar: avatar
+      message: message,
+      user: current_user,
+      avatar: avatar
     }, status: :ok
   end
+
 end
