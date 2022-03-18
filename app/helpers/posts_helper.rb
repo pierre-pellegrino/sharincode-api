@@ -29,7 +29,7 @@ module PostsHelper
         user: {
           username: post.user.username,
           avatar: avatar,
-          user_id: current_user.id
+          user_id: post.user_id
         },
         snippets: post.snippets,
         comments: format_comments(post.comments.order('created_at desc')),
