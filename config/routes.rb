@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  get 'reactions/index'
+  get 'reactions/create'
+  get 'reactions/destroy'
+  get 'reactions/index'
+  get 'reactions/create'
+  get 'reactions/update'
+  get 'reactions/destroy'
   get 'post_tags/show'
   get 'post_tags/update'
   devise_for :users,
@@ -11,4 +18,5 @@ Rails.application.routes.draw do
     resources :comments, only: %i[index update create destroy]
   end
   resources :tags, only: %i[index create]
+  resources :reactions, only: %i[create destroy]
 end
