@@ -93,17 +93,6 @@ end
 languages = %w[
   Bash
   CSS
-  HTML/XML
-  JavaScript
-  JSON
-  JSX
-  Markdown
-  MySQL
-  Ruby
-  Sass
-  TSX
-  TypeScript
-  YAML
 ]
 
 100.times do |i|
