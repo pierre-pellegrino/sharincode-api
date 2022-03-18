@@ -88,7 +88,18 @@ user4.avatar.attach(
     Use Array.prototype.reduce() to add each value to an accumulator, initialized with a value of 0.
     Divide the resulting array by its length.",
   )
-  Snippet.create(content: 'initial snipper', post: post, language: 'CSS')
+  Snippet.create(
+    content: "
+      const averageBy = (arr, fn) =>
+      arr
+        .map(typeof fn === 'function' ? fn : val => val[fn])
+        .reduce((acc, val) => acc + val, 0) / arr.length;
+    
+      averageBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], o => o.n); // 5
+      averageBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], 'n'); // 5",
+    post: post,
+    language: 'JavaScript'
+  )
 end
 
 languages = %w[
