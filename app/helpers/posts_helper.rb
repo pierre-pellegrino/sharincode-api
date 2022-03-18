@@ -28,7 +28,8 @@ module PostsHelper
         updated_at: post.updated_at,
         user: {
           username: post.user.username,
-          avatar: avatar
+          avatar: avatar,
+          user_id: current_user.id
         },
         snippets: post.snippets,
         comments: format_comments(post.comments.order('created_at desc')),
