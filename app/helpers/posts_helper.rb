@@ -20,6 +20,9 @@ module PostsHelper
 
   def format_post(post)
     avatar = rails_blob_url(post.user.avatar) if post.user.avatar.attached?
+    snippets = [] if !post.snippets
+    comments = [] if !post.comments
+    tags = [] if !post.tags
     {
       post: {
         id: post.id,
@@ -28,7 +31,8 @@ module PostsHelper
         updated_at: post.updated_at,
         user: {
           username: post.user.username,
-          avatar: avatar
+          avatar: avatar,
+          user_id: post.user_id
         },
         snippets: post.snippets,
         comments: format_comments(post.comments.order('created_at desc')),

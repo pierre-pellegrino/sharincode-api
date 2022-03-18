@@ -22,6 +22,7 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user = current_user
     error_formatter(@post) && return unless @post.save
+    error_formatter(@post) && return if !@post.snippets
 
     params[:snippets].each do |snippet|
       snip = Snippet.new(content: snippet[:content], language: snippet[:language], post: @post)
@@ -44,9 +45,9 @@ class PostsController < ApplicationController
     if @post.update(post_params)
       params[:snippets].each do |snippet|
         if snippet[:destroy] == true
-          Snippet.find(snippet.id).destroy!
+          Snippet.find(snippet[:id]).destroy!
         else
-          Snippet.find(snippet.id).update(content: snippet[:content], language: snippet[:language])
+          Snippet.find(snippet[:id]).update(content: snippet[:content], language: snippet[:language])
         end
       end
     end
@@ -58,6 +59,9 @@ class PostsController < ApplicationController
 
     @post.destroy
     Snippet.where(post_id: @post.id).each(&:destroy)
+    render json: {
+      message: "Post successefully deleted !"
+    }, status: :ok
   end
 
   private
