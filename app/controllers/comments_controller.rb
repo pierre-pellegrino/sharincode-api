@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   include CommentsHelper
 
   before_action :authenticate_user!, only: %i[create update destroy]
-  before_action :set_comment, only: %i[update destroy]
+  before_action :set_comment, only: %i[update delete]
 
   def index
     @comments = []
