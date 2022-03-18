@@ -1,4 +1,8 @@
 FactoryBot.define do
+  factory :reaction do
+    title { "MyString" }
+  end
+
   factory :post_tag do
     post { nil }
     tag { nil }
