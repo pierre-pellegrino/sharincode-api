@@ -58,6 +58,9 @@ class PostsController < ApplicationController
 
     @post.destroy
     Snippet.where(post_id: @post.id).each(&:destroy)
+    render json: {
+      message: "Post successefully deleted !"
+    }, status: :ok
   end
 
   private
