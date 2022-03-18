@@ -130,7 +130,7 @@ end
   )
 end
 
-tags = %W[
+tags = %w[
   Web
   FrontEnd
   BackEnd
@@ -152,3 +152,9 @@ tags.each do |tag|
     puts 'PostTag relation created between the post ' + myPost.id.to_s + ' and the tag ' + myTag.title
   end
 end
+
+reactions = %w[
+  Light
+  Love
+  Check
+]
