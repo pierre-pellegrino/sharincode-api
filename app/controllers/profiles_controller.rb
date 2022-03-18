@@ -2,32 +2,27 @@ class ProfilesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    user = get_user_from_token
-    avatar = rails_blob_url(user.avatar) if user.avatar.attached?
-    render json: {
-      user: user,
-      avatar: avatar
-    }, status: :ok
+    message = 'Profile of the current user'
+    render_user(message)
   end
 
   def update
-    if current_user.update(user_params)
-      render_user_json
-    else
-      error_formatter(current_user)
-    end
+    message = 'Profile correctly updated !'
+    render_user(message) && return if current_user.update(user_params)
+    error_formatter(current_user)
   end
 
   private
 
-  def get_user_from_token
-    jwt_payload = JWT.decode(request.headers['Authorization'].split(' ')[1],
-                  Rails.application.credentials.devise[:jwt_secret_key]).first
-    user_id = jwt_payload['sub']
-    User.find(user_id.to_s)
-  end
-
   def user_params
-    params.require(:user).permit(:username)
+    params
+      .require(:user)
+      .permit(
+        :username,
+        :description,
+        :github_url,
+        :personal_url,
+        :favorite_theme
+      )
   end
 end
