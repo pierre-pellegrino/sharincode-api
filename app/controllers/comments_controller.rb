@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   include CommentsHelper
 
   before_action :authenticate_user!, only: %i[create update destroy]
-  before_action :set_comment, only: %i[update delete]
+  before_action :set_comment, only: %i[update destroy]
 
   def index
     @comments = []
@@ -32,8 +32,10 @@ class CommentsController < ApplicationController
 
   def destroy
     unauthorized_user_error && return if current_user.id != @comment.user.id
-
     @comment.destroy
+    render json: {
+      message: "The comment has been deleted !"
+    }, status: :ok
   end
 
   private

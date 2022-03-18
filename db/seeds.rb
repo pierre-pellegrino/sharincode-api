@@ -5,16 +5,13 @@ def loading_bar(i, total, action)
   puts "#{i * 100 / total}% [#{'#' * count}#{' ' * (50 - count)}]"
 end
 
-loading_bar(1, 5, 'cleaning db')
+PostReaction.destroy_all
 User.destroy_all
-loading_bar(2, 5, 'cleaning db')
 Post.destroy_all
-loading_bar(3, 5, 'cleaning db')
 Snippet.destroy_all
-loading_bar(4, 5, 'cleaning db')
 Comment.destroy_all
-loading_bar(5, 5, 'cleaning db')
 Tag.destroy_all
+Reaction.destroy_all
 
 
 loading_bar(1, 4, 'creating users')
@@ -67,7 +64,6 @@ user4 = User.create(
   email: 'a@yopmail.com',
   password: "password",
   username: "The Back Maniac",
-  username: "The Awakening Sleeper",
   description: "Ceci est ma description",
   github_url: "https://github.com/talmidiel",
   personal_url: "portfolio",
@@ -131,7 +127,7 @@ end
   )
 end
 
-tags = %W[
+tags = %w[
   Web
   FrontEnd
   BackEnd
@@ -152,4 +148,23 @@ tags.each do |tag|
     PostTag.create(post: myPost, tag: myTag)
     puts 'PostTag relation created between the post ' + myPost.id.to_s + ' and the tag ' + myTag.title
   end
+end
+
+reactions = %w[
+  Light
+  Love
+  Check
+]
+
+reactions.each do |reaction|
+  myReaction = Reaction.create(title: reaction)
+  puts 'New reaction created: ' + myReaction.to_s
+end
+
+100.times do |i|
+  user = User.all[rand(User.all.length)]
+  post = Post.all[rand(Post.all.length)]
+  reaction = Reaction.all[rand(Reaction.all.length)]
+  postReaction = PostReaction.create(user: user, post: post, reaction:reaction)
+  puts 'New reaction created: ' + postReaction.to_s
 end
