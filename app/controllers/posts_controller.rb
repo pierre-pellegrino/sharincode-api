@@ -44,9 +44,9 @@ class PostsController < ApplicationController
     if @post.update(post_params)
       params[:snippets].each do |snippet|
         if snippet[:destroy] == true
-          Snippet.find(snippet.id).destroy!
+          Snippet.find(snippet[:id]).destroy!
         else
-          Snippet.find(snippet.id).update(content: snippet[:content], language: snippet[:language])
+          Snippet.find(snippet[:id]).update(content: snippet[:content], language: snippet[:language])
         end
       end
     end
