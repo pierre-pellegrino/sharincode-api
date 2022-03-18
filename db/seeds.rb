@@ -158,3 +158,8 @@ reactions = %w[
   Love
   Check
 ]
+
+reactions.each do |reaction|
+  myReaction = Reaction.create(title: reaction)
+  puts 'New reaction created: ' + myReaction
+end
