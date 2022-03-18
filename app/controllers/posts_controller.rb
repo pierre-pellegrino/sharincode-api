@@ -22,6 +22,7 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user = current_user
     error_formatter(@post) && return unless @post.save
+    error_formatter(@post) && return if !@post.snippets
 
     params[:snippets].each do |snippet|
       snip = Snippet.new(content: snippet[:content], language: snippet[:language], post: @post)
