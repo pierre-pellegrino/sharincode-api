@@ -20,6 +20,9 @@ module PostsHelper
 
   def format_post(post)
     avatar = rails_blob_url(post.user.avatar) if post.user.avatar.attached?
+    snippets = [] if !post.snippets
+    comments = [] if !post.comments
+    tags = [] if !post.tags
     {
       post: {
         id: post.id,
