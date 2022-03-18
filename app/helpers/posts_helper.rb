@@ -1,4 +1,5 @@
 module PostsHelper
+
   def format_comments(comments)
     result = []
     comments.each do |comment|
@@ -30,7 +31,8 @@ module PostsHelper
           avatar: avatar
         },
         snippets: post.snippets,
-        comments: format_comments(post.comments.order('created_at desc'))
+        comments: format_comments(post.comments.order('created_at desc')),
+        tags: post.tags
       }
     }
   end

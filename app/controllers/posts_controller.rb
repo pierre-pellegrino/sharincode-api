@@ -28,6 +28,13 @@ class PostsController < ApplicationController
       error_formatter(snippet) unless snip.save
     end
 
+    params[:tags].each do |tag|
+      t = Tag.find_by(title: tag)
+      t = Tag.create(title: tag) unless t
+      post_tag = PostTag.new(post: @post, tag: t)
+      error_formatter(tag) unless post_tag.save
+    end
+
     render_post_json(@post)
   end
 
@@ -60,6 +67,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.permit(:description)
+    params.require(:post).permit(:description)
   end
 end
