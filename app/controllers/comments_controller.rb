@@ -32,8 +32,10 @@ class CommentsController < ApplicationController
 
   def destroy
     unauthorized_user_error && return if current_user.id != @comment.user.id
-
     @comment.destroy
+    render json: {
+      message: "Comment has been deleted !"
+    }, status: :ok
   end
 
   private
