@@ -5,10 +5,10 @@ class SearchesController < ApplicationController
 
   def index
     @posts = []
-    search = Search.new(@search_input).search_all
+    results = Search.new(@search_input).search_all
 
-    search.each do |result|
-      @posts << format_post(result)
+    results.each do |post|
+      @posts << format_post(post)
     end
 
     render json: {
@@ -19,6 +19,6 @@ class SearchesController < ApplicationController
   private
 
   def search_params
-    @search_input = params[:all]
+    @search_input = params[:keywords]
   end
 end
