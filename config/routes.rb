@@ -9,5 +9,4 @@ Rails.application.routes.draw do
     resources :comments, only: %i[index update create destroy]
   end
   resources :tags, only: %i[index create]
-  resources :reactions, only: %i[create destroy]
 end
