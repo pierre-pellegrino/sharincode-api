@@ -3,10 +3,12 @@ class PostsController < ApplicationController
 
   before_action :authenticate_user!, only: %i[create update destroy]
   before_action :set_post, only: %i[show update destroy]
+  before_action :split_endpoints
 
   def index
+    limit = 10
     @posts = []
-    Post.all.order('created_at desc').each do |post|
+    Post.all.order('created_at desc').limit(limit).offset((@page - 1) * limit).each do |post|
       @posts << format_post(post)
     end
     render json: {
