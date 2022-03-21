@@ -43,7 +43,5 @@ class Search
     search_tags
     search_languages
     search_username
-
-    @results
   end
 end
