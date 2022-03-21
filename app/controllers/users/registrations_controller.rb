@@ -9,7 +9,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def register_success
-    UserMailer.welcome_email(current_user).deliver!
     message = 'New user sucessfully registered !'
     render_user(message)
   end
