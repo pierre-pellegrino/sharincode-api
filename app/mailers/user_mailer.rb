@@ -1,5 +1,5 @@
 class UserMailer < ApplicationMailer
-  default from: 'noreply@snipshare.com'
+  default from: 'snipshare.dev@outlook.com'
 
   def welcome_email
     @user = current_user
