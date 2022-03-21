@@ -10,13 +10,28 @@ class Search
   end
 
   def search_tags
-    Post.joins(:tags).where('title ILIKE ANY ( ARRAY[?] )', @search_input).limit(10).offset((@page - 1) * 10).each do |post|
+    Post.joins(:tags)
+        .where('title ILIKE ANY ( ARRAY[?] )', @search_input)
+        .limit(10).offset((@page - 1) * 10)
+        .each do |post|
+
+      @results << post
+    end
+  end
+
+  def search_languages
+    Post.joins(:snippets)
+        .where('language ILIKE ANY ( ARRAY[?] )', @search_input)
+        .limit(10).offset((@page - 1) * 10)
+        .each do |post|
+
       @results << post
     end
   end
 
   def search_all
     search_tags
+    search_languages
 
     @results
   end
