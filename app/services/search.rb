@@ -6,14 +6,15 @@ class Search
 
     @page = page
     @results = []
-    @search_input = search_input
+    @search_input = []
+    search_input.split('_').each do |input|
+      @search_input << "%#{input}%"
+    end
   end
 
   def search_tags
-    input = @search_input.split('_')
-
     Post.joins(:tags)
-        .where('title ILIKE ANY ( ARRAY[?] )', input)
+        .where('title ILIKE ANY ( ARRAY[?] )', @search_input)
         .order('created_at DESC')
         .limit(10).offset((@page - 1) * 10)
         .each do |post|
@@ -23,10 +24,8 @@ class Search
   end
 
   def search_languages
-    input = @search_input.split('_')
-
     Post.joins(:snippets)
-        .where('language ILIKE ANY ( ARRAY[?] )', input)
+        .where('language ILIKE ANY ( ARRAY[?] )', @search_input)
         .order('created_at DESC')
         .limit(10).offset((@page - 1) * 10)
         .each do |post|
@@ -36,10 +35,8 @@ class Search
   end
 
   def search_username
-    input = "%#{@search_input.split('-').join(' ')}%"
-
     Post.joins(:user)
-        .where('username ILIKE ANY ( ARRAY[?] )', input)
+        .where('username ILIKE ANY ( ARRAY[?] )', @search_input)
         .order('created_at DESC')
         .limit(10).offset((@page - 1) * 10)
         .each do |post|
