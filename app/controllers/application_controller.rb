@@ -10,7 +10,7 @@ class ApplicationController < ActionController::API
   end
 
   def render_user(message = nil, user = current_user)
-    avatar = rails_blob_url(current_user.avatar) if current_user.avatar.attached?
+    avatar = rails_blob_url(user.avatar) if user.avatar.attached?
     render json: {
       message: message,
       user: user,
