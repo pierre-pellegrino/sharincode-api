@@ -58,16 +58,7 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
   config.action_mailer.default_url_options = { host: 'snipshare.vercel.app'}
   config.action_mailer.perform_deliveries = true
-
-  config.action_mailer.smtp_settings = {
-    user_name: Rails.application.credentials.dig(:mailjet, :public_key),
-    password: Rails.application.credentials.dig(:mailjet, :secret_key),
-    domain: 'snipshare.dev@outlook.com',
-    address: 'in-v3.mailjet.com',
-    port: 587,
-    authentication: :plain,
-    enable_starttls_auto: true
-  }
+  config.action_mailer.delivery_method = :smtp
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
