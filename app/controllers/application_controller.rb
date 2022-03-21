@@ -11,12 +11,11 @@ class ApplicationController < ActionController::API
 
   def render_user(message = nil, user = current_user)
     avatar = rails_blob_url(user.avatar) if user.avatar.attached?
-    posts = Post.where(user: current_user)
     render json: {
       message: message,
       user: user,
       avatar: avatar,
-      posts: posts
+      snippets: user.snippets
     }, status: :ok
   end
 
