@@ -16,13 +16,20 @@ class ApplicationController < ActionController::API
     }, status: :unprocessable_entity
   end
 
-  def render_user(message = nil)
-    avatar = rails_blob_url(current_user.avatar) if current_user.avatar.attached?
+  def render_user(message = nil, user = current_user)
+    avatar = rails_blob_url(user.avatar) if user.avatar.attached?
     render json: {
       message: message,
-      user: current_user,
+      user: user,
       avatar: avatar
     }, status: :ok
   end
 
+  def split_endpoints
+    @page = if params[:page]
+              params[:page].to_i
+            else
+              1
+            end
+  end
 end

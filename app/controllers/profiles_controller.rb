@@ -8,10 +8,8 @@ class ProfilesController < ApplicationController
 
   def show
     @profile = User.find(params[:id])
-    render json: {
-      message: 'This is the profile you asked :',
-      profile: @profile
-    }, status: :ok
+    message = 'This is the profile you asked :'
+    render_user(message, @profile)
   end
 
   def update

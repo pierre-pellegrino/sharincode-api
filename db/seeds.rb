@@ -118,7 +118,7 @@ languages = %w[
     averageBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], o => o.n); // 5
     averageBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], 'n'); // 5",
     post: Post.all[rand(Post.all.length)],
-    language: languages.sample(1)
+    language: languages.sample(1).join
   )
 end
 
