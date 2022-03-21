@@ -4,8 +4,8 @@ require_relative "application"
 # Initialize the Rails application.
 
 ActionMailer::Base.smtp_settings = {
-  user_name: Rails.application.credentials.dig(:mailjet, :public_key),
-  password: Rails.application.credentials.dig(:mailjet, :secret_key),
+  user_name: ENV['mailjet_public'],
+  password: ENV['mailjet_secret'],
   domain: 'snipshare.dev@outlook.com',
   address: 'in-v3.mailjet.com',
   port: 587,
