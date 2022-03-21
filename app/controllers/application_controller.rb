@@ -18,4 +18,7 @@ class ApplicationController < ActionController::API
     }, status: :ok
   end
 
+  def split_endpoints
+    @page = params[:page].to_i || 1
+  end
 end
