@@ -7,8 +7,9 @@ Rails.application.routes.draw do
   resources :profiles, only: %i[index show update]
   resources :posts, only: %i[index show update create destroy] do
     resources :comments, only: %i[index update create destroy]
+    resources :post_reactions, only: %i[create]
+    resource :post_reactions, only: %i[destroy]
   end
   resources :tags, only: %i[index create]
   resources :reactions, only: %i[index]
-  resources :post_reactions, only: %i[create]
 end
