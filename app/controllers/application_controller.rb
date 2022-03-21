@@ -19,6 +19,10 @@ class ApplicationController < ActionController::API
   end
 
   def split_endpoints
-    @page = params[:page].to_i || 1
+    @page = if params[:page]
+              params[:page].to_i
+            else
+              1
+            end
   end
 end
