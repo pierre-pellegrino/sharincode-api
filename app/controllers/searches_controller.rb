@@ -1,4 +1,6 @@
 class SearchesController < ApplicationController
+  include PostsHelper
+
   before_action :search_params
 
   def index
@@ -6,7 +8,7 @@ class SearchesController < ApplicationController
     search = Search.new(@search_input).search_all
 
     search.each do |result|
-      @posts << result
+      @posts << format_post(result)
     end
 
     render json: {

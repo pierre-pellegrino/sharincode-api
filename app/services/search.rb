@@ -9,7 +9,9 @@ class Search
   end
 
   def search_tags
-    @results << Post.joins(:tags).where('title ILIKE ANY ( ARRAY[?] )', @search_input)
+    Post.joins(:tags).where('title ILIKE ANY ( ARRAY[?] )', @search_input).each do |post|
+      @results << post
+    end
   end
 
   def search_all
