@@ -37,7 +37,7 @@ module PostsHelper
         snippets: post.snippets,
         comments: format_comments(post.comments.order('created_at desc')),
         tags: post.tags,
-        reaction: post.reactions
+        reactions: post.post_reactions
       }
     }
   end
