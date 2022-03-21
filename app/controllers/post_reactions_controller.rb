@@ -3,14 +3,14 @@ class PostReactionsController < ApplicationController
   end
 
   def create
-    @reaction = PostReaction.new(reaction_params)
-    @reaction.title = params[:reaction_title]
-    @reaction.user = current_user
-    @reaction.post = Post.find(params[:post_id])
-    error_formatter(@reaction) && return unless @reaction.save
+    @post_reaction = PostReaction.new(reaction_params)
+    @post_reaction.title = Reaction.find_by(title: params[:reaction_title])
+    @post_reaction.user = current_user
+    @post_reaction.post = Post.find(params[:post_id])
+    error_formatter(@post_reaction) && return unless @post_reaction.save
     render json: {
       message: "Reaction added !",
-      "reaction": :@reaction
+      "reaction": :@post_reaction
     }
   end
 
