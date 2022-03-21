@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_21_122521) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_21_123756) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,6 +58,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_21_122521) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["jti"], name: "index_jwt_denylist_on_jti"
+  end
+
+  create_table "post_reactions", force: :cascade do |t|
+    t.bigint "post_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "reaction_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_post_reactions_on_post_id"
+    t.index ["reaction_id"], name: "index_post_reactions_on_reaction_id"
+    t.index ["user_id"], name: "index_post_reactions_on_user_id"
   end
 
   create_table "post_tags", force: :cascade do |t|
@@ -117,6 +128,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_21_122521) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "post_reactions", "posts"
+  add_foreign_key "post_reactions", "reactions"
+  add_foreign_key "post_reactions", "users"
   add_foreign_key "post_tags", "posts"
   add_foreign_key "post_tags", "tags"
 end
