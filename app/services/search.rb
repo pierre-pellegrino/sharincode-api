@@ -6,7 +6,7 @@ class Search
 
     @page = page
     @results = []
-    @search_input = search_input.split('_')
+    @search_input = search_input.split('-')
   end
 
   def search_tags
@@ -29,9 +29,20 @@ class Search
     end
   end
 
+  def search_username
+    Post.joins(:user)
+        .where('username ILIKE ANY ( ARRAY[?] )', @search_input)
+        .limit(10).offset((@page - 1) * 10)
+        .each do |post|
+
+      @results << post
+    end
+  end
+
   def search_all
     search_tags
     search_languages
+    search_username
 
     @results
   end
