@@ -9,11 +9,11 @@ class ApplicationController < ActionController::API
     }, status: status
   end
 
-  def render_user(message = nil)
+  def render_user(message = nil, user = current_user)
     avatar = rails_blob_url(current_user.avatar) if current_user.avatar.attached?
     render json: {
       message: message,
-      user: current_user,
+      user: user,
       avatar: avatar
     }, status: :ok
   end
