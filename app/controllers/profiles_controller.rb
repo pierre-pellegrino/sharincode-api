@@ -18,6 +18,13 @@ class ProfilesController < ApplicationController
     error_formatter(current_user)
   end
 
+  def destroy
+    error_formatter(current_user) unless current_user.destroy
+    render json: {
+      message: 'User deleted from the database !'
+    }, status: :ok
+  end
+
   private
 
   def user_params

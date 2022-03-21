@@ -6,10 +6,10 @@ class User < ApplicationRecord
          :jwt_authenticatable,
          jwt_revocation_strategy: JwtDenylist
 
-  has_many :posts
-  has_many :snippets, through: :posts
-  has_many :comments
-  has_one_attached :avatar
+  has_many :posts, dependent: :destroy
+  has_many :snippets, through: :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_one_attached :avatar, dependent: :destroy
 
   validates :username,
   uniqueness: true,
