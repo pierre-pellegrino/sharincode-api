@@ -12,6 +12,7 @@ class Search
   def search_tags
     Post.joins(:tags)
         .where('title ILIKE ANY ( ARRAY[?] )', @search_input)
+        .order('created_at DESC')
         .limit(10).offset((@page - 1) * 10)
         .each do |post|
 
@@ -22,6 +23,7 @@ class Search
   def search_languages
     Post.joins(:snippets)
         .where('language ILIKE ANY ( ARRAY[?] )', @search_input)
+        .order('created_at DESC')
         .limit(10).offset((@page - 1) * 10)
         .each do |post|
 
@@ -32,6 +34,7 @@ class Search
   def search_username
     Post.joins(:user)
         .where('username ILIKE ANY ( ARRAY[?] )', @search_input)
+        .order('created_at DESC')
         .limit(10).offset((@page - 1) * 10)
         .each do |post|
 
