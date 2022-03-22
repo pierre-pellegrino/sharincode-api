@@ -15,7 +15,6 @@ class Search
   def search_tags
     Post.joins(:tags)
         .where('title ILIKE ANY ( ARRAY[?] )', @search_input)
-        .order('created_at DESC')
         .each do |post|
 
       @raw_results << post
@@ -25,7 +24,6 @@ class Search
   def search_languages
     Post.joins(:snippets)
         .where('language ILIKE ANY ( ARRAY[?] )', @search_input)
-        .order('created_at DESC')
         .each do |post|
 
       @raw_results << post
@@ -35,7 +33,6 @@ class Search
   def search_username
     Post.joins(:user)
         .where('username ILIKE ANY ( ARRAY[?] )', @search_input)
-        .order('created_at DESC')
         .each do |post|
 
       @raw_results << post
@@ -43,7 +40,11 @@ class Search
   end
 
   def relevance_sort
-    @raw_results.group_by { |element| element }.map { |key, value| [key, value.size] }.each do |post|
+    @raw_results.group_by { |post| post }
+                .map { |key, value| [key, value.size] }
+                .sort_by { |post| -post[1] }
+                .each do |post|
+
       @results << post[0]
     end
   end
