@@ -56,4 +56,14 @@ class Search
 
     relevance_sort
   end
+
+  def search_in(search_in)
+    search_in.split('_').each do |search|
+      # must see this with the group, since using eval is a security risk
+      eval("search_#{search}")
+    rescue NoMethodError && NameError
+      return []
+    end
+    relevance_sort
+  end
 end
