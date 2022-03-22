@@ -11,12 +11,13 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_one_attached :avatar, dependent: :destroy
 
-  validates :username,
-  uniqueness: true,
-  length: { 
-    minimum: 4,
-    maximum: 36 
-  }
+  validates :username, 
+    uniqueness: true,
+    length:
+      {
+        minimum: 4,
+        maximum: 36 
+      }
 
   after_create :welcome_send
 

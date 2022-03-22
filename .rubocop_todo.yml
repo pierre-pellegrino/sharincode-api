@@ -8,23 +8,26 @@
 
 
 
-# Offense count: 1
+# Offense count: 4
 # This cop supports safe auto-correction (--auto-correct).
-# Configuration parameters: EnforcedStyleAlignWith.
-# SupportedStylesAlignWith: either, start_of_block, start_of_line
-Layout/BlockAlignment:
+# Configuration parameters: EnforcedStyle, IndentationWidth.
+# SupportedStyles: with_first_argument, with_fixed_indentation
+Layout/ArgumentAlignment:
   Exclude:
-    - 'config/initializers/devise.rb'
+    - 'app/models/tag.rb'
+    - 'app/models/user.rb'
+    - 'config/initializers/cors.rb'
+
 
 # Offense count: 11
 # This cop supports safe auto-correction (--auto-correct).
-Layout/EmptyLineAfterGuardClause:
-  Exclude:
-    - 'app/controllers/comments_controller.rb'
-    - 'app/controllers/tags_controller.rb'
-    - 'app/controllers/users/registrations_controller.rb'
-    - 'app/controllers/users/sessions_controller.rb'
-    - 'bin/bundle'
+# Layout/EmptyLineAfterGuardClause:
+#   Exclude:
+#     - 'app/controllers/comments_controller.rb'
+#     - 'app/controllers/tags_controller.rb'
+#     - 'app/controllers/users/registrations_controller.rb'
+#     - 'app/controllers/users/sessions_controller.rb'
+#     - 'bin/bundle'
 
 # Offense count: 4
 # This cop supports safe auto-correction (--auto-correct).
