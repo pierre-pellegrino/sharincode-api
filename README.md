@@ -44,7 +44,7 @@ Endpoint: /users/sign_out
 
 ### Show current User (AUTH required)
 Method: GET 
-Endpoint: /profiles
+Endpoint: /profile
 
 ### Show a Profile (AUTH required)
 Method: GET 
@@ -52,7 +52,7 @@ Endpoint: /profiles/:id
 
 ### Update User (AUTH required)
 Method: PATCH
-Endpoint: /profiles/:id 
+Endpoint: /profile
 Payload:
 ```json
 {
@@ -68,7 +68,7 @@ Payload:
 
 ### Delete User (AUTH required)
 Method: DELETE 
-Endpoint: /profiles
+Endpoint: /profile
 
 
 ## POSTS
