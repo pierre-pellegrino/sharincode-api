@@ -6,6 +6,12 @@ class ProfilesController < ApplicationController
     render_user(message)
   end
 
+  def show
+    @profile = User.find(params[:id])
+    message = 'This is the profile you asked :'
+    render_user(message, @profile)
+  end
+
   def update
     message = 'Profile correctly updated !'
     render_user(message) && return if current_user.update(user_params)

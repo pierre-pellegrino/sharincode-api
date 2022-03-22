@@ -17,4 +17,11 @@ class User < ApplicationRecord
     maximum: 36 
   }
 
+  after_create :welcome_send
+
+  private
+
+  def welcome_send
+    UserMailer.welcome_email(self).deliver_now
+  end
 end
