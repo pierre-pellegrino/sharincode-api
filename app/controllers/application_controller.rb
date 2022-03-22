@@ -14,7 +14,8 @@ class ApplicationController < ActionController::API
     render json: {
       message: message,
       user: user,
-      avatar: avatar
+      avatar: avatar,
+      snippets: user.snippets
     }, status: :ok
   end
 

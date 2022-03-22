@@ -67,7 +67,6 @@ user4 = User.create(
   email: 'a@yopmail.com',
   password: "password",
   username: "The Back Maniac",
-  username: "The Awakening Sleeper",
   description: "Ceci est ma description",
   github_url: "https://github.com/talmidiel",
   personal_url: "portfolio",
