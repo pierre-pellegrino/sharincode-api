@@ -39,6 +39,14 @@ class Search
     end
   end
 
+  def search_post
+    Post.where('description ILIKE ANY ( ARRAY[?] )', @search_input)
+        .each do |post|
+
+      @raw_results << post
+    end
+  end
+
   def relevance_sort
     @raw_results.group_by { |post| post }
                 .map { |key, value| [key, value.size] }
