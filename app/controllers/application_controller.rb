@@ -9,12 +9,20 @@ class ApplicationController < ActionController::API
     }, status: status
   end
 
+  def error_request(message = 'No error details provided')
+    render json: {
+      title: "Your request does not seem correct ...",
+      message: message
+    }, status: :unprocessable_entity
+  end
+
   def render_user(message = nil, user = current_user)
     avatar = rails_blob_url(user.avatar) if user.avatar.attached?
     render json: {
       message: message,
       user: user,
-      avatar: avatar
+      avatar: avatar,
+      snippets: user.snippets
     }, status: :ok
   end
 
