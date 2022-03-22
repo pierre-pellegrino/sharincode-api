@@ -22,7 +22,7 @@ class ApplicationController < ActionController::API
       message: message,
       user: user,
       avatar: avatar,
-      snippets: user.snippets
+      posts: user.posts
     }, status: :ok
   end
 
