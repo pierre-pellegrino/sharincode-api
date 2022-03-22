@@ -13,5 +13,6 @@ Rails.application.routes.draw do
     resource :post_reactions, only: %i[destroy]
   end
   resources :tags, only: %i[index create]
-  resources :reactions, only: %i[index]
+  resources :reactions, only: %i[create destroy]
+  resources :searches, only: %i[index]
 end
