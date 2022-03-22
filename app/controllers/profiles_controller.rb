@@ -13,16 +13,15 @@ class ProfilesController < ApplicationController
   end
 
   def update
+    error_formatter(current_user) unless current_user.update(user_params)
     message = 'Profile correctly updated !'
-    render_user(message) && return if current_user.update(user_params)
-    error_formatter(current_user)
+    render_user(message)
   end
 
   def destroy
     error_formatter(current_user) unless current_user.destroy
-    render json: {
-      message: 'User deleted from the database !'
-    }, status: :ok
+    message = 'User deleted from the database !'
+    success_request(message)
   end
 
   private

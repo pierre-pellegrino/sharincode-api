@@ -4,6 +4,7 @@ class PostReactionsController < ApplicationController
 
   def create
     error_request('Reaction already exist !') && return if @post_reaction
+
     @post_reaction = PostReaction.new(post_reaction_params)
     @post_reaction.user = current_user
     @post_reaction.post = Post.find(params[:post_id])
@@ -11,7 +12,7 @@ class PostReactionsController < ApplicationController
     error_formatter(@post_reaction) && return unless @post_reaction.save
 
     render json: {
-      message: "Reaction created !",
+      message: 'Reaction created !',
       "reaction": @post_reaction
     }
   end
@@ -21,7 +22,7 @@ class PostReactionsController < ApplicationController
     error_formatter(@post_reaction) && return unless @post_reaction.destroy
 
     render json: {
-      message: "Reaction deleted !"
+      message: 'Reaction deleted !'
     }
   end
 
@@ -34,5 +35,4 @@ class PostReactionsController < ApplicationController
   def post_reaction_params
     params.permit(:title)
   end
-
 end
