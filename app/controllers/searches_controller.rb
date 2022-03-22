@@ -6,10 +6,10 @@ class SearchesController < ApplicationController
 
   def index
     @posts = []
-    search = Search.new(@search_input, @page)
+    search = Search.new(@search_input)
     search.search_all
 
-    search.results.each do |post|
+    search.results[((@page - 1) * 10)..(@page * 10 - 1)].each do |post|
       @posts << format_post(post)
     end
 

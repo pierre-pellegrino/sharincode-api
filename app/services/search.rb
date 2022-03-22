@@ -1,11 +1,11 @@
 class Search
-  attr_accessor :results, :search_input
+  attr_accessor :results, :search_input, :raw_results
 
-  def initialize(search_input, page)
+  def initialize(search_input)
     return if search_input.nil?
 
-    @page = page
     @results = []
+    @raw_results = []
     @search_input = []
     search_input.split('_').each do |input|
       @search_input << "%#{input}%"
@@ -16,10 +16,9 @@ class Search
     Post.joins(:tags)
         .where('title ILIKE ANY ( ARRAY[?] )', @search_input)
         .order('created_at DESC')
-        .limit(10).offset((@page - 1) * 10)
         .each do |post|
 
-      @results << post
+      @raw_results << post
     end
   end
 
@@ -27,10 +26,9 @@ class Search
     Post.joins(:snippets)
         .where('language ILIKE ANY ( ARRAY[?] )', @search_input)
         .order('created_at DESC')
-        .limit(10).offset((@page - 1) * 10)
         .each do |post|
 
-      @results << post
+      @raw_results << post
     end
   end
 
@@ -38,10 +36,15 @@ class Search
     Post.joins(:user)
         .where('username ILIKE ANY ( ARRAY[?] )', @search_input)
         .order('created_at DESC')
-        .limit(10).offset((@page - 1) * 10)
         .each do |post|
 
-      @results << post
+      @raw_results << post
+    end
+  end
+
+  def relevance_sort
+    @raw_results.group_by { |element| element }.map { |key, value| [key, value.size] }.each do |post|
+      @results << post[0]
     end
   end
 
@@ -49,5 +52,7 @@ class Search
     search_tags
     search_languages
     search_username
+
+    relevance_sort
   end
 end
