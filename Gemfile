@@ -57,3 +57,5 @@ gem 'faker'
 gem 'factory_bot_rails'
 gem 'database_cleaner'
 gem "aws-sdk-s3", "~> 1.113"
+
+gem "httparty", "~> 0.20.0"
