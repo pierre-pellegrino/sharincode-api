@@ -1,5 +1,4 @@
 module PostsHelper
-
   def format_comments(comments)
     result = []
     comments.each do |comment|
@@ -44,13 +43,5 @@ module PostsHelper
 
   def render_post_json(post)
     render json: format_post(post)
-  end
-
-  def unauthorized_user_error
-    render json: {
-      error: {
-        title: "Vous n'etes pas authorisé a editer ou supprimer un post ne vous appartenant pas"
-      }
-    }
   end
 end

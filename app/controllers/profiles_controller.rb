@@ -8,13 +8,13 @@ class ProfilesController < ApplicationController
   end
 
   def update
-    current_user.update(user_params) || error_formatter(current_user) && return
+    current_user.update(user_params) || error_update && return
     message = 'Profile correctly updated !'
     render_user(message)
   end
 
   def destroy
-    current_user.destroy || error_formatter(current_user) && return
+    current_user.destroy || error_destroy && return
     message = 'Profile correctly deleted !'
     success_request(message)
   end
@@ -36,5 +36,13 @@ class ProfilesController < ApplicationController
   def set_user
     @user = current_user
     @user = User.find(params[:id]) if params[:id]
+  end
+
+  def error_update
+    error_formatter(current_user)
+  end
+
+  def error_destroy
+    error_formatter(current_user)
   end
 end

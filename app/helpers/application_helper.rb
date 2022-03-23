@@ -2,14 +2,15 @@ module ApplicationHelper
   include ErrorHelper
   include PostsHelper
 
-  def success_request(message = 'Request success !')
+  # Renders success json when no return payload is due
+  def success_request(message = 'Request success !', status = :accepted)
     render json: {
       title: 'Your request has been accepted !',
       message: message
-    }, status: :ok
+    }, status: status
   end
 
-  def render_user(message = nil, user = current_user)
+  def render_user(message, user = current_user)
     avatar = rails_blob_url(user.avatar) if user.avatar.attached?
     posts = []
     Post.where(user_id: user.id).each do |post|
