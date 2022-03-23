@@ -1,4 +1,23 @@
 module PostsHelper
+  def prepare_posts_list
+    limit = 10
+    Post.all.order('created_at desc').limit(limit).offset((@page - 1) * limit).each do |post|
+      @posts << format_post(post)
+    end
+  end
+
+  def render_posts_list
+    render json: {
+      posts: @posts
+    }
+  end
+
+  def error_no_snippet_given
+    message = 'A post needs to contain at least one snippet to be created !'
+    status = :precondition_failed
+    error_request(message, status)
+  end
+
   def format_comments(comments)
     result = []
     comments.each do |comment|

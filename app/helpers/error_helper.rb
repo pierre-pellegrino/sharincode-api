@@ -18,11 +18,4 @@ module ErrorHelper
     message = resource.errors.full_messages.join('; ') || 'No error details !'
     render_error(title, message, status)
   end
-
-  def unauthorized_user_error
-    title = 'Your request has been rejected !'
-    message = 'You are not an authorized user for this action !'
-    status = :unauthorized
-    render_error(title, message, status)
-  end
 end

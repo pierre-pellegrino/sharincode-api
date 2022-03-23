@@ -10,7 +10,7 @@ class ProfilesController < ApplicationController
   def update
     current_user.update(user_params) || error_update && return
     message = 'Profile correctly updated !'
-    render_user(message)
+    render_user(message, current_user)
   end
 
   def destroy
