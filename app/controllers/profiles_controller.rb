@@ -33,7 +33,8 @@ class ProfilesController < ApplicationController
         :description,
         :github_url,
         :personal_url,
-        :favorite_theme
+        :favorite_theme,
+        :avatar
       )
   end
 end
