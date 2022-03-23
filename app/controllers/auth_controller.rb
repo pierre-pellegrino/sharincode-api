@@ -3,16 +3,13 @@ class AuthController < ApplicationController
 
   def index
     get_user_data
-
-    puts @user_data
     @user = User.from_github(@user_data)
-    if @user.save!
-      @user.avatar.attach(io: Down.download(@user_data['avatar_url']), filename: 'avatar.png')
-      message = 'successfully signed in from github'
-      render_user(message)
-    else
-      error_formatter(@user)
-    end
+    jwt = Warden::JWTAuth::UserEncoder.new.call(@user, :user, nil)
+
+    sign_in @user
+
+    response.set_header('Authorization', "Bearer #{jwt[0]}")
+    render_user('signed in')
   end
 
   private

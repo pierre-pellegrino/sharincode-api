@@ -28,6 +28,8 @@ class User < ApplicationRecord
       user.email = data['email']
       user.password = Devise.friendly_token[0, 20]
       user.username = data['login']
+      user.save
+      user.avatar.attach(io: Down.download(data['avatar_url']), filename: 'avatar.png')
     end
   end
 
