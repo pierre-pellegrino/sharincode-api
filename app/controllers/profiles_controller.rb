@@ -1,11 +1,10 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_user, only: [:show]
 
   def show
-    user = current_user
-    user = User.find(params[:id]) if params[:id]
     message = 'This is the profile you requested :'
-    render_user(message, user)
+    render_user(message, @user)
   end
 
   def update
@@ -32,5 +31,10 @@ class ProfilesController < ApplicationController
         :personal_url,
         :favorite_theme
       )
+  end
+
+  def set_user
+    @user = current_user
+    @user = User.find(params[:id]) if params[:id]
   end
 end
