@@ -4,19 +4,19 @@ class ProfilesController < ApplicationController
   def show
     user = current_user
     user = User.find(params[:id]) if params[:id]
-    message = 'This is the profile you asked :'
+    message = 'This is the profile you requested :'
     render_user(message, user)
   end
 
   def update
-    error_formatter(current_user) unless current_user.update(user_params)
+    current_user.update(user_params) || error_formatter(current_user) && return
     message = 'Profile correctly updated !'
     render_user(message)
   end
 
   def destroy
-    error_formatter(current_user) unless current_user.destroy
-    message = 'User deleted from the database !'
+    current_user.destroy || error_formatter(current_user) && return
+    message = 'Profile correctly deleted !'
     success_request(message)
   end
 

@@ -5,10 +5,10 @@ module CommentsHelper
       comment: {
         id: comment.id,
         content: comment.content,
-        created_at: comment.created_at,
-        updated_at: comment.updated_at,
         username: comment.user.username,
-        avatar: avatar
+        avatar: avatar,
+        created_at: comment.created_at,
+        updated_at: comment.updated_at
       }
     }
   end
@@ -20,7 +20,7 @@ module CommentsHelper
   def unauthorized_user_error
     render json: {
       error: {
-        title: "Vous n'etes pas authorisé a editer ou supprimer un commentaire ne vous appartenant pas"
+        title: 'You are not authorized to edit or delete this comment !'
       }
     }
   end

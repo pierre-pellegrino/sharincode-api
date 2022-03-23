@@ -8,14 +8,14 @@ class ApplicationController < ActionController::API
     }, status: status
   end
 
-  def error_request(message = 'No error details provided')
+  def error_request(message = 'Request error !')
     render json: {
-      title: 'Your request does not seem correct ...',
+      title: 'Your request has been rejected !',
       message: message
     }, status: :unprocessable_entity
   end
 
-  def success_request(message = 'Request success')
+  def success_request(message = 'Request success !')
     render json: {
       title: 'Your request has been accepted !',
       message: message
