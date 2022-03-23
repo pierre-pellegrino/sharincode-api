@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-  
+  include PostsHelper
   def error_formatter(resource, status = :unprocessable_entity)
     render json: {
       error: {
@@ -18,11 +18,15 @@ class ApplicationController < ActionController::API
 
   def render_user(message = nil, user = current_user)
     avatar = rails_blob_url(user.avatar) if user.avatar.attached?
+    posts = []
+    Post.where(user_id: current_user.id).each do |post|
+      posts << format_post(post)
+    end
     render json: {
       message: message,
       user: user,
       avatar: avatar,
-      posts: user.posts
+      posts: posts
     }, status: :ok
   end
 
