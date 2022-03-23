@@ -1,11 +1,11 @@
 class TagsController < ApplicationController
   include TagsHelper
   before_action :authenticate_user!, only: %i[create]
-  before_action :tag_not_exists, only: %i[create]
+  before_action :new_tag?, only: %i[create]
 
   def index
     @tags = Tag.all
-    render_tags
+    render_tags_list
   end
 
   def create
@@ -20,9 +20,10 @@ class TagsController < ApplicationController
     params.require(:tag).permit(:title)
   end
 
-  def tag_not_exists
-    return unless Tag.find_by(title: params[:title])
+  def new_tag?
+    Tag.find_by(title: params[:title]) || return
     message = 'Tag already exists in the database !'
-    error_request(message)
+    status = :forbidden
+    error_request(message, status)
   end
 end

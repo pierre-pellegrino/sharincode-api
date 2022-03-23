@@ -3,7 +3,7 @@ module ApplicationHelper
   include PostsHelper
 
   # Renders success json when no return payload is due
-  def success_request(message = 'Request success !', status = :accepted)
+  def success_request(message = 'Request success !', status = :ok)
     render json: {
       title: 'Your request has been accepted !',
       message: message

@@ -1,5 +1,5 @@
 module TagsHelper
-  def render_tags
+  def render_tags_list
     render json: {
       message: "All tags currently in the database",
       "tags": @tags
@@ -10,6 +10,6 @@ module TagsHelper
     render json: {
       message: "New tag created !",
       "tag": @tag
-    }, status: :ok
+    }, status: :accepted
   end
 end
