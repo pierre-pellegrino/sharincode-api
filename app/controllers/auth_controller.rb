@@ -6,6 +6,8 @@ class AuthController < ApplicationController
     get_private_email if @user_data['email'].nil?
 
     @user = User.from_github(@user_data)
+    error_formatter(@user) && return unless @user.persisted?
+
     jwt = Warden::JWTAuth::UserEncoder.new.call(@user, :user, nil)
 
     sign_in @user
