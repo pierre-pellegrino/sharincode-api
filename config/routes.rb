@@ -3,8 +3,8 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
-  resources :profiles, only: %i[index show update] 
-  resource :profiles, only: %i[destroy]
+  resources :profiles, only: %i[show]
+  resource :profile, only: %i[show update destroy]
   resources :posts, only: %i[index show update create destroy] do
     resources :comments, only: %i[index update create destroy]
     resources :post_reactions, only: %i[create]
