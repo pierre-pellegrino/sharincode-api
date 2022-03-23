@@ -6,7 +6,11 @@ https://snipshare-api.herokuapp.com/
 
 https://snipshare-api-staging.herokuapp.com/
 
-## ENDPOINTS
+
+
+# ENDPOINTS
+
+## USERS
 
 ### Register
 Method: POST 
@@ -22,7 +26,6 @@ Payload :
 ```
 
 ### Login
-
 Method: POST 
 Endpoint: /users/sign_in 
 Payload :
@@ -35,21 +38,21 @@ Payload :
 }
 ```
 
-
 ### Logout (AUTH required)
-
 Method: DELETE 
 Endpoint: /users/sign_out
 
-### Show User (AUTH required)
-
+### Show current User (AUTH required)
 Method: GET 
-Endpoint: /profiles
+Endpoint: /profile
+
+### Show a Profile (AUTH required)
+Method: GET 
+Endpoint: /profiles/:id
 
 ### Update User (AUTH required)
-
 Method: PATCH
-Endpoint: /profiles/:id 
+Endpoint: /profile
 Payload:
 ```json
 {
@@ -63,9 +66,14 @@ Payload:
 }
 ```
 
+### Delete User (AUTH required)
+Method: DELETE 
+Endpoint: /profile
 
-### See Posts list
 
+## POSTS
+
+### List all Posts
 Method: GET 
 Endpoint: /posts 
 Returns:
@@ -114,8 +122,7 @@ Returns:
 }
 ```
 
-### Get one Post
-
+### Show a Post
 Method: GET 
 Endpoint: /posts/:id 
 Returns:
@@ -124,47 +131,40 @@ Returns:
 {
   "post": {
     "id": 1,
-    "description": "Calculates the average of an array, after mapping each element to a value using the provided function.\n\n    Use Array.prototype.map() to map each element to the value returned by fn.\n    Use Array.prototype.reduce() to add each value to an accumulator, initialized with a value of 0.\n    Divide the resulting array by its length.",
-    "created_at": "2022-03-17T14:46:24.612Z",
-    "updated_at": "2022-03-17T14:46:24.612Z",
+    "description": "",
+    "created_at": "",
+    "updated_at": "",
     "user": {
-      "username": "The Front Maniac",
-      "avatar": "http://localhost:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--058f6636aca22bf22170eb9ea69aa15469b47f17/avatar.jpg"
+      "username": "",
+      "avatar": ""
     },
     "snippets": [
       {
-        "id": 41,
-        "content": "const averageBy = (arr, fn) =>\n    arr\n      .map(typeof fn === 'function' ? fn : val => val[fn])\n      .reduce((acc, val) => acc + val, 0) / arr.length;\n\n    averageBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], o => o.n); // 5\n    averageBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], 'n'); // 5",
-        "post_id": 1,
-        "created_at": "2022-03-17T14:46:25.407Z",
-        "updated_at": "2022-03-17T14:46:25.407Z",
-        "language": "[\"Markdown\"]"
-      },
-      {
-        ...
+        "id": "",
+        "content": "",
+        "post_id": "",
+        "created_at": "",
+        "updated_at": "",
+        "language": ""
       }
     ],
     "comments": [
       {
         "comment": {
           "id": 52,
-          "content": "Perspiciatis blanditiis voluptatem. Odio debitis pariatur. Consequuntur voluptas temporibus.",
-          "created_at": "2022-03-17T14:46:26.840Z",
-          "updated_at": "2022-03-17T14:46:26.840Z",
-          "username": "The Awakening Sleeper",
-          "avatar": "http://localhost:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--543b39388f0230904c374c1c0d1aa78af1c700a3/avatar.jpg"
+          "content": "",
+          "created_at": "",
+          "updated_at": "",
+          "username": "",
+          "avatar": ""
         }
-      },
-      {
-      ...
       }
     ]
   }
 }
 ```
 
-### Create Post (AUTH required)
-
+### Create a Post (AUTH required)
 Method: POST 
 Endpoint: /posts 
 Payload:
@@ -186,16 +186,40 @@ Payload:
     ""
   ]
 }
-
 ```
 
-### See Tags list
+### Update a Post (AUTH required)
+Method: PATCH 
+Endpoint: /posts/:id 
+Payload:
+```json
+{
+  "description": "",
+  "snippets": [
+    {
+      "content": "",
+      "language": "",
+      "id": ""
+    }
+  ],
+  "tags": [
+    ""
+  ]
+}  
+```
 
+### Delete a Post (AUTH required)
+Method: DELETE 
+Endpoint: /posts/:id 
+
+
+## TAGS
+
+### List all Tags
 Method: GET 
 Endpoint: /tags
 
-### Create Tag (AUTH required)
-
+### Create a Tag (AUTH required)
 Method: POST 
 Endpoint: /tags 
 Payload:
@@ -205,8 +229,13 @@ Payload:
 }
 ```
 
-### Create New Comment (AUTH required)
+## COMMENTS
 
+### List all Comments
+Method: GET 
+Endpoint: /comments
+
+### Create a Comment (AUTH required)
 Method: POST
 Endpoint: /posts/:post_id/comments
 Payload:
@@ -215,3 +244,23 @@ Payload:
   "content": ""
 }
 ```
+
+## REACTIONS
+
+### List all Reactions
+Method: GET 
+Endpoint: /reactions
+
+### Create a Reaction (AUTH required)
+Method: POST
+Endpoint: /posts/:post_id/post_reactions
+Payload:
+```json
+{
+  "name": ""
+}
+```
+
+### Delete a Reaction (AUTH required)
+Method: DELETE 
+Endpoint: /posts/:post_id/post_reactions 
