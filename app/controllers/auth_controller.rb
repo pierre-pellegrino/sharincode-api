@@ -17,7 +17,7 @@ class AuthController < ApplicationController
 
   private
 
-  def get_acess_token
+  def get_access_token
     client_id = Rails.application.credentials.dig(:github, :client_id)
     client_secret = Rails.application.credentials.dig(:github, :client_secret)
     code = params[:code]
@@ -34,7 +34,7 @@ class AuthController < ApplicationController
 
   def get_user_data
     url = 'https://api.github.com/user'
-    access_token = get_acess_token
+    access_token = get_access_token
     headers = {
       Authorization: "token #{access_token}",
       Accept: 'application/json'
