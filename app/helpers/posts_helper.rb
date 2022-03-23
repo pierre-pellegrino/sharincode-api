@@ -1,11 +1,4 @@
 module PostsHelper
-  def prepare_posts_list
-    limit = 10
-    Post.all.order('created_at desc').limit(limit).offset((@page - 1) * limit).each do |post|
-      @posts << format_post(post)
-    end
-  end
-
   def render_posts_list
     render json: {
       posts: @posts

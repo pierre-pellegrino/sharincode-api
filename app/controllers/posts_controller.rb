@@ -18,31 +18,23 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user = current_user
-    create_post_snippets || return
+    create_snippets || return
     @post.save || error_formatter(@post) && return
-    attach_post_tags
+    attach_tags
     render_post_json(@post)
   end
 
   def update
-    if @post.update(post_params)
-      params[:snippets].each do |snippet|
-        if snippet[:destroy] == true
-          Snippet.find(snippet[:id]).destroy!
-        else
-          Snippet.find(snippet[:id]).update(content: snippet[:content], language: snippet[:language])
-        end
-      end
-    end
+    update_snippets
+    @post.update(post_params) || error_formatter(@post) && return
     render_post_json(@post)
   end
 
   def destroy
-    @post.destroy
-    Snippet.where(post_id: @post.id).each(&:destroy)
-    render json: {
-      message: "Post successfully deleted !"
-    }, status: :ok
+    @post.destroy || error_formatter(@post) && return
+    message = 'Post successfully deleted !'
+    status = :accepted
+    success_request(message, status)
   end
 
   private
@@ -63,7 +55,14 @@ class PostsController < ApplicationController
     error_request(message, status)
   end
 
-  def create_post_snippets
+  def prepare_posts_list
+    limit = 10
+    Post.all.order('created_at desc').limit(limit).offset((@page - 1) * limit).each do |post|
+      @posts << format_post(post)
+    end
+  end
+
+  def create_snippets
     params[:snippets] || error_no_snippet_given && return
     params[:snippets].each do |snippet|
       new_snippet = Snippet.new(content: snippet[:content], language: snippet[:language], post: @post)
@@ -71,7 +70,19 @@ class PostsController < ApplicationController
     end
   end
 
-  def attach_post_tags
+  def update_snippets
+    params[:snippets] || return
+    params[:snippets].each do |snippet|
+      snip = Snippet.find(snippet[:id])
+      if snippet[:destroy] == true
+        snip.destroy!
+      else
+        snip.update(content: snippet[:content], language: snippet[:language])
+      end
+    end
+  end
+
+  def attach_tags
     params[:tags] || return
     params[:tags].each do |tag|
       tagger = Tag.find_by(title: tag) || Tag.create(title: tag)
