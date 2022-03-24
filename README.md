@@ -9,13 +9,10 @@ https://snipshare-api-staging.herokuapp.com/
 
 
 # ENDPOINTS
-
 ## USERS
 
 ### Register
-Method: POST 
-Endpoint: /users 
-Payload :
+POST on /users with payload :
 ```json
 {
   "user": {
@@ -26,9 +23,7 @@ Payload :
 ```
 
 ### Login
-Method: POST 
-Endpoint: /users/sign_in 
-Payload :
+POST on /users/sign_in  with payload :
 ```json
 {
   "user": {
@@ -38,22 +33,17 @@ Payload :
 }
 ```
 
-### Logout (AUTH required)
-Method: DELETE 
-Endpoint: /users/sign_out
+### Logout
+DELETE on /users/sign_out with auth
 
-### Show current User (AUTH required)
-Method: GET 
-Endpoint: /profile
+### Show connected User
+GET on /profile with Auth
 
-### Show a Profile (AUTH required)
-Method: GET 
-Endpoint: /profiles/:id
+### Show a User
+GET on /profiles/:id with auth
 
-### Update User (AUTH required)
-Method: PATCH
-Endpoint: /profile
-Payload:
+### Update connected User
+PATCH on /profile with auth and payload :
 ```json
 {
   "user": {
@@ -66,163 +56,67 @@ Payload:
 }
 ```
 
-### Delete User (AUTH required)
-Method: DELETE 
-Endpoint: /profile
+### Delete connected User
+DELETE on /profile with auth
 
 
 ## POSTS
 
 ### List all Posts
-Method: GET 
-Endpoint: /posts 
-Returns:
-
-```json
-{
-  "posts": [
-    {
-      "post": {
-        "id": "",
-        "description": "",
-        "created_at": "",
-        "updated_at": "",
-        "user": {
-          "username": "",
-          "avatar": ""
-        },
-        "snippets": [
-          {
-            "id": "",
-            "content": "",
-            "post_id": "",
-            "created_at": "",
-            "updated_at": "",
-            "language": ""
-          },
-          {
-            ...
-          }
-        ],
-        "comments": [
-          {
-            "comment": {
-              "id": "",
-              "content": "",
-              "created_at": "",
-              "updated_at": "",
-              "username": "",
-              "avatar": ""
-            }
-          }
-        ]
-      }
-    }
-  ]
-}
-```
+GET on /posts 
 
 ### Show a Post
-Method: GET 
-Endpoint: /posts/:id 
-Returns:
+GET on /posts/:id 
 
+### Create a Post
+POST on /posts with auth and payload : 
 ```json
 {
   "post": {
-    "id": 1,
     "description": "",
-    "created_at": "",
-    "updated_at": "",
-    "user": {
-      "username": "",
-      "avatar": ""
-    },
     "snippets": [
       {
-        "id": "",
         "content": "",
-        "post_id": "",
-        "created_at": "",
-        "updated_at": "",
         "language": ""
       }
     ],
-    "comments": [
-      {
-        "comment": {
-          "id": 52,
-          "content": "",
-          "created_at": "",
-          "updated_at": "",
-          "username": "",
-          "avatar": ""
-        }
-      }
+    "tags": [
+      ""
     ]
   }
 }
 ```
 
-### Create a Post (AUTH required)
-Method: POST 
-Endpoint: /posts 
-Payload:
+### Update a Post
+PATCH on /posts/:id with auth and payload :
 ```json
 {
-  "description": "",
-  "snippets": [
-    {
-      "content": "",
-      "language": ""
-    },
-    {
-      "content": "",
-      "language": ""
-    }
-  ],
-  "tags": [
-    "",
-    ""
-  ]
-}
-```
-
-### Update a Post (AUTH required)
-Method: PATCH 
-Endpoint: /posts/:id 
-Payload:
-```json
-{
-  "description": "",
-  "snippets": [
-    {
-      "content": "",
-      "language": "",
-      "id": ""
-    }
-  ],
-  "tags": [
-    ""
-  ]
+  "post": {
+    "description": "",
+    "snippets": [
+      {
+        "content": "",
+        "language": "",
+        "id": ""
+      }
+    ],
+    "tags": [
+      ""
+    ]
+  }
 }  
 ```
 
-### Delete a Post (AUTH required)
-Method: DELETE 
-Endpoint: /posts/:id 
-
+### Delete a Post
+DELETE on /posts/:id with auth 
 
 ## TAGS
 
 ### List all Tags
-Method: GET 
-Endpoint: /tags
+GET on /tags
 
-### Create a Tag (AUTH required)
-Method: POST 
-Endpoint: /tags 
-Payload:
+### Create a Tag
+POST on /tags with auth and payload :
 ```json
 {
   "title": ""
@@ -232,35 +126,39 @@ Payload:
 ## COMMENTS
 
 ### List all Comments
-Method: GET 
-Endpoint: /comments
+GET on /comments
 
-### Create a Comment (AUTH required)
-Method: POST
-Endpoint: /posts/:post_id/comments
-Payload:
+### Create a Comment
+POST on /posts/:post_id/comments with auth and payload :
 ```json
 {
   "content": ""
 }
 ```
 
+### Update a Comment
+PATCH on /posts/:post_id/comments/:comment_id with auth and payload :
+```json
+{
+  "content": ""
+}
+```
+
+### Delete a Comment
+DELETE on /posts/:post_id/comments/:comment_id with auth
+
 ## REACTIONS
 
 ### List all Reactions
-Method: GET 
-Endpoint: /reactions
+GET on /reactions
 
-### Create a Reaction (AUTH required)
-Method: POST
-Endpoint: /posts/:post_id/post_reactions
-Payload:
+### Create a Reaction
+POST on /posts/:post_id/post_reactions with auth and payload :
 ```json
 {
   "name": ""
 }
 ```
 
-### Delete a Reaction (AUTH required)
-Method: DELETE 
-Endpoint: /posts/:post_id/post_reactions 
+### Delete a Reaction
+DELETE on /posts/:post_id/post_reactions with auth
