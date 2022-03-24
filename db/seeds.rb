@@ -163,3 +163,10 @@ reactions.each do |reaction|
   myReaction = Reaction.create(title: reaction)
   puts 'New Reaction: ' + myReaction.title
 end
+
+User.all.each_with_index do |user, index|
+  3.times do |i|
+    loading_bar((i + 1) * (index + 1), User.all.length * 3, 'adding posts to favorites')
+    FavoritePost.create(user: user, post: Post.all[rand(Post.all.length)])
+  end
+end
