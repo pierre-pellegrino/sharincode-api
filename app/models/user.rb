@@ -20,6 +20,22 @@ class User < ApplicationRecord
 
   after_create :welcome_send
 
+
+  def self.from_github(data)
+    where(uid: data['email']).first_or_initialize.tap do |user|
+      user.provider = 'github'
+      user.uid = data['email']
+      user.email = data['email']
+      user.password = Devise.friendly_token[0, 20]
+      user.username = data['login']
+      user.github_url = data['html_url']
+      user.personal_url = data['blog']
+      user.description = data['bio']
+      user.save
+      user.avatar.attach(io: Down.download(data['avatar_url']), filename: 'avatar.png')
+    end
+  end
+
   private
 
   def welcome_send
