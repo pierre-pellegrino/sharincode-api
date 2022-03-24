@@ -1,21 +1,17 @@
 class TagsController < ApplicationController
+  include TagsHelper
   before_action :authenticate_user!, only: %i[create]
+  before_action :new_tag?, only: %i[create]
 
   def index
     @tags = Tag.all
-    render json: {
-      message: "All tags currently in the database",
-      "tags": @tags
-    }, status: :ok
+    render_tags_list
   end
 
   def create
     @tag = Tag.new(tag_params)
-    error_formatter(@tag) && return unless @tag.save
-    render json: {
-      message: "New tag created !",
-      "tag": @tag
-    }, status: :ok
+    @tag.save || error_formatter(@tag) && return
+    render_tag
   end
 
   private
@@ -24,4 +20,10 @@ class TagsController < ApplicationController
     params.require(:tag).permit(:title)
   end
 
+  def new_tag?
+    Tag.find_by(title: params[:title]) || return
+    message = 'Tag already exists in the database !'
+    status = :forbidden
+    error_request(message, status)
+  end
 end

@@ -1,4 +1,15 @@
 module PostsHelper
+  def render_posts_list
+    render json: {
+      posts: @posts
+    }
+  end
+
+  def error_no_snippet_given
+    message = 'A post needs to contain at least one snippet to be created !'
+    status = :precondition_failed
+    error_request(message, status)
+  end
 
   def format_comments(comments)
     result = []
@@ -44,13 +55,5 @@ module PostsHelper
 
   def render_post_json(post)
     render json: format_post(post)
-  end
-
-  def unauthorized_user_error
-    render json: {
-      error: {
-        title: "Vous n'etes pas authorisé a editer ou supprimer un post ne vous appartenant pas"
-      }
-    }
   end
 end
