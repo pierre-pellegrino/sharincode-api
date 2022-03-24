@@ -16,9 +16,9 @@ class FavoritePostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
+    @favorite_post = FavoritePost.find(params[:id])
 
-    if current_user.id != @post.user.id
+    if current_user.id != @favorite_post.user_id
       render json: {
         error: {
           title: "can't remove favorite posts from other users"
@@ -27,7 +27,7 @@ class FavoritePostsController < ApplicationController
       return
     end
 
-    @post.destroy
+    @favorite_post.destroy
 
     render json: {
       message: 'post removed from favorites'
