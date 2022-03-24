@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'snippets/destroy'
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
@@ -9,6 +10,7 @@ Rails.application.routes.draw do
     resources :comments, only: %i[index update create destroy]
     resources :post_reactions, only: %i[create]
     resource :post_reactions, only: %i[destroy]
+    resources :snippets, only: %i[destroy]
   end
   resources :tags, only: %i[index create]
   resources :reactions, only: %i[index]

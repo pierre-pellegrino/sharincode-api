@@ -110,6 +110,11 @@ PATCH on /posts/:id with auth and payload :
 ### Delete a Post
 DELETE on /posts/:id with auth 
 
+## SNIPPETS
+
+### Delete a Snippet
+DELETE on /posts/:post_id/snippets/:snippet_id with auth 
+
 ## TAGS
 
 ### List all Tags
