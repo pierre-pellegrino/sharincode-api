@@ -24,7 +24,9 @@ class ApplicationController < ActionController::API
     end
     favorite_posts = []
     user.favorite_posts.each do |favorite|
-      favorite_posts << format_post(favorite.post)
+      post = format_post(favorite.post)
+      post[:favorite_id] = favorite.id
+      favorite_posts << post
     end
     render json: {
       message: message,
