@@ -22,11 +22,18 @@ class ApplicationController < ActionController::API
     Post.where(user_id: user.id).each do |post|
       posts << format_post(post)
     end
+    favorite_posts = []
+    user.favorite_posts.each do |favorite|
+      post = format_post(favorite.post)
+      post[:favorite_id] = favorite.id
+      favorite_posts << post
+    end
     render json: {
       message: message,
       user: user,
       avatar: avatar,
-      posts: posts
+      posts: posts,
+      favorite_posts: favorite_posts
     }, status: :ok
   end
 
