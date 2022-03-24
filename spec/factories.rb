@@ -1,4 +1,8 @@
 FactoryBot.define do
+  factory :favorite_post do
+    
+  end
+
   factory :post_reaction do
     post { nil }
     user { nil }

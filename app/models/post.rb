@@ -6,6 +6,7 @@ class Post < ApplicationRecord
   has_many :tags, through: :post_tags
   has_many :post_reactions, dependent: :destroy
   has_many :reactions, through: :post_reactions
+  has_many :favorite_posts, dependent: :destroy
 
   validates :description, length: { maximum: 500 }
 end
