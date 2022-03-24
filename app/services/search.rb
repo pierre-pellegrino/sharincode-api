@@ -61,8 +61,6 @@ class Search
     search_tags
     search_languages
     search_username
-
-    relevance_sort
   end
 
   def search_in(search_in)

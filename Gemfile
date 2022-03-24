@@ -25,3 +25,20 @@ end
 group :development do
   gem 'letter_opener'
 end
+<<<<<<< HEAD
+=======
+
+
+gem "devise", "~> 4.8"
+gem "rack-cors", "~> 1.1"
+gem "devise-jwt", "~> 0.9.0"
+
+gem 'faker'
+gem 'factory_bot_rails'
+gem 'database_cleaner'
+gem "aws-sdk-s3", "~> 1.113"
+
+gem "httparty", "~> 0.20.0"
+
+gem "down", "~> 5.3"
+>>>>>>> development
