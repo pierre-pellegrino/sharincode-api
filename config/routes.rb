@@ -16,4 +16,5 @@ Rails.application.routes.draw do
   resources :reactions, only: %i[index]
   resources :searches, only: %i[index]
   resources :auth, only: %i[index]
+  resources :favorite_posts, only: %i[create destroy]
 end
