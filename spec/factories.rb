@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :comments, class: Comment do
-    text { Faker::Lorem.paragraph }
+    content { Faker::Lorem.paragraph }
     post { FactoryBot.create(:post) }
     user { FactoryBot.create(:user) }
   end
@@ -14,7 +14,7 @@ FactoryBot.define do
   factory :random_user, class: User do
     email { Faker::Internet.email }
     password { "password" }
-    username { Faker::Lorem.word }
+    username { Faker::Internet.username }
   end
 
   factory :post, class: Post do
