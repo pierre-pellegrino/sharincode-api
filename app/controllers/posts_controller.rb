@@ -19,20 +19,20 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user = current_user
     create_snippets || return
-    @post.save || error_formatter(@post) && return
+    @post.save || error_formatter(@post) and return
     attach_tags(params[:tags]) if params[:tags]
     render_post_json(@post)
   end
 
   def update
     update_snippets
-    @post.update(post_params) || error_formatter(@post) && return
+    @post.update(post_params) || error_formatter(@post) and return
     update_tags if params[:post][:tags]
     render_post_json(@post)
   end
 
   def destroy
-    @post.destroy || error_formatter(@post) && return
+    @post.destroy || error_formatter(@post) and return
     message = 'Post successfully deleted !'
     status = :accepted
     success_request(message, status)
@@ -67,7 +67,7 @@ class PostsController < ApplicationController
   end
 
   def create_snippets
-    params[:snippets] || error_no_snippet_given && return false
+    params[:snippets] || error_no_snippet_given and return false
     params[:snippets].each do |snippet|
       new_snippet = Snippet.new(content: snippet[:content], language: snippet[:language], post: @post)
       new_snippet.save || error_formatter(snippet)
