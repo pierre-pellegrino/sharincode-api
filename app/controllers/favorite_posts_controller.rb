@@ -16,6 +16,7 @@ class FavoritePostsController < ApplicationController
   end
 
   def destroy
+    puts 'test'
     @favorite_post = FavoritePost.find(params[:id])
 
     if current_user.id != @favorite_post.user_id
