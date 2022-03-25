@@ -18,7 +18,7 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user = current_user
-    params[:snippets] && error_no_snippet_given && return
+    params[:snippets] || error_no_snippet_given && return
     create_snippets
     @post.save || error_formatter(@post) && return
     attach_tags(params[:tags]) if params[:tags]
