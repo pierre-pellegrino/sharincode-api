@@ -88,7 +88,7 @@ class PostsController < ApplicationController
 
   def attach_tags(tags)
     tags.each do |tag_title|
-      tag = Tag.find_by(title: tag_title) || break
+      tag = Tag.find_by(title: tag_title) || Tag.create(title: tag_title)
       attach_tag(tag)
     end
   end
