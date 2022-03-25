@@ -18,7 +18,8 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user = current_user
-    create_snippets || return
+    params[:snippets] || error_no_snippet_given && return
+    create_snippets
     @post.save || error_formatter(@post) && return
     attach_tags(params[:tags]) if params[:tags]
     render_post_json(@post)
@@ -67,7 +68,6 @@ class PostsController < ApplicationController
   end
 
   def create_snippets
-    params[:snippets] || error_no_snippet_given && return false
     params[:snippets].each do |snippet|
       new_snippet = Snippet.new(content: snippet[:content], language: snippet[:language], post: @post)
       new_snippet.save || error_formatter(snippet)
