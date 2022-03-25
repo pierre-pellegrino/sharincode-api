@@ -13,7 +13,7 @@ module ApplicationHelper
   def render_user(message, user = current_user)
     avatar = rails_blob_url(user.avatar) if user.avatar.attached?
     posts = []
-    Post.where(user_id: user.id).each do |post|
+    Post.where(user_id: user.id).order('created_at DESC').each do |post|
       posts << format_post(post)
     end
     favorite_posts = []
