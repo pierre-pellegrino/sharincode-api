@@ -1,33 +1,23 @@
 FactoryBot.define do
-  factory :favorite_post do
-    
+  factory :comments, class: Comment do
+    text { Faker::Lorem.paragraph }
+    post { FactoryBot.create(:post) }
+    user { FactoryBot.create(:user) }
   end
 
-  factory :post_reaction do
-    post { nil }
-    user { nil }
-    reaction { nil }
-  end
-
-  factory :reaction do
-    title { "MyString" }
-  end
-
-  factory :post_tag do
-    post { nil }
-    tag { nil }
-  end
-
-  factory :tag do
-    title { "MyString" }
+  factory :user, class: User do
+    email { "rspec_tests@yopmail.com" }
+    password { "password" }
+    username { "rspec_test" }
   end
 
   factory :random_user, class: User do
     email { Faker::Internet.email }
     password { "password" }
+    username { Faker::Lorem.word }
   end
 
-  factory :random_post, class: Post do
+  factory :post, class: Post do
     description { Faker::Lorem.paragraph }
     user { FactoryBot.create(:random_user) }
   end
