@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   include PostsHelper
-  before_action :authenticate_user!, except: %i[index]
+  before_action :authenticate_user!, except: %i[index show]
   before_action :set_post, except: %i[index create]
   before_action :authorized_user?, only: %i[update destroy]
   before_action :split_endpoints
@@ -67,7 +67,7 @@ class PostsController < ApplicationController
   end
 
   def create_snippets
-    params[:snippets] || error_no_snippet_given && return
+    params[:snippets] || error_no_snippet_given && return false
     params[:snippets].each do |snippet|
       new_snippet = Snippet.new(content: snippet[:content], language: snippet[:language], post: @post)
       new_snippet.save || error_formatter(snippet)

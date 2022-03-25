@@ -8,7 +8,7 @@ class SearchesController < ApplicationController
     @posts = []
     search = Search.new(@search_input)
 
-    search.search_in(@in)
+    search.search_all
 
     search.results[((@page - 1) * 10)..(@page * 10 - 1)].each do |post|
       @posts << format_post(post)
@@ -23,6 +23,5 @@ class SearchesController < ApplicationController
 
   def search_params
     @search_input = params[:keywords]
-    @in = params[:in]
   end
 end
