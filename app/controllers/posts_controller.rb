@@ -28,7 +28,7 @@ class PostsController < ApplicationController
   def update
     update_snippets
     @post.update(post_params) || error_formatter(@post) && return
-    update_tags if params[:post][:tags]
+    update_tags if params[:tags]
     render_post_json(@post)
   end
 
