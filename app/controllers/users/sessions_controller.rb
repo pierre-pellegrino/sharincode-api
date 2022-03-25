@@ -9,7 +9,7 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def respond_to_on_destroy
-    logout_success && return if !current_user
+    logout_success && return unless current_user
     error_formatter(resource, :unauthorized)
   end
   

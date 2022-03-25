@@ -1,26 +1,22 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_user, only: [:show]
 
   def show
-    user = current_user
-    user = User.find(params[:id]) if params[:id]
-    message = 'This is the profile you asked :'
-    render_user(message, user)
+    message = 'This is the profile you requested :'
+    render_user(message, @user)
   end
 
   def update
-    error_formatter(current_user) && return unless current_user.update(user_params)
-
+    current_user.update(user_params) || error_update && return
     message = 'Profile correctly updated !'
     render_user(message, current_user)
   end
 
   def destroy
-    error_formatter(current_user) && return unless current_user.destroy
-
-    render json: {
-      message: 'User deleted from the database !'
-    }, status: :ok
+    current_user.destroy || error_destroy && return
+    message = 'Profile correctly deleted !'
+    success_request(message)
   end
 
   private
@@ -35,5 +31,18 @@ class ProfilesController < ApplicationController
         :favorite_theme,
         :avatar
       )
+  end
+
+  def set_user
+    @user = current_user
+    @user = User.find(params[:id]) if params[:id]
+  end
+
+  def error_update
+    error_formatter(current_user)
+  end
+
+  def error_destroy
+    error_formatter(current_user)
   end
 end
