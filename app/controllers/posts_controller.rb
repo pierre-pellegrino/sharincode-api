@@ -28,7 +28,7 @@ class PostsController < ApplicationController
   def update
     update_snippets
     @post.update(post_params) || error_formatter(@post) && return
-    update_tags if params[:post][:tags]
+    update_tags if params[:tags]
     render_post_json(@post)
   end
 
@@ -42,10 +42,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post)
-          .permit(
-            :description
-          )
+    params.permit(:description)
   end
 
   def set_post
@@ -100,7 +97,7 @@ class PostsController < ApplicationController
 
   def update_tags
     PostTag.where(post: @post).destroy_all
-    params[:post][:tags].each do |tag_title|
+    params[:tags].each do |tag_title|
       tag = Tag.find_by(title: tag_title) || Tag.create(title: tag_title)
       PostTag.create(post: @post, tag: tag) unless PostTag.find_by(post: @post, tag: tag)
     end
