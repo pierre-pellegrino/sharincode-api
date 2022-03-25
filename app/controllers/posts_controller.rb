@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   include PostsHelper
-  before_action :authenticate_user!, except: %i[index]
+  before_action :authenticate_user!, except: %i[index show]
   before_action :set_post, except: %i[index create]
   before_action :authorized_user?, only: %i[update destroy]
   before_action :split_endpoints
