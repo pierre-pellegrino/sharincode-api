@@ -1,5 +1,4 @@
 FactoryBot.define do
-
   factory :user, class: User do
     email { "rspec_tests@yopmail.com" }
     password { "password" }
@@ -23,4 +22,7 @@ FactoryBot.define do
     user { FactoryBot.create(:user) }
   end
 
+  factory :reaction, class: Reaction do
+    title { Faker::Lorem.word }
+  end
 end

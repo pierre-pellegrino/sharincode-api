@@ -6,7 +6,7 @@ describe "get all posts route", type: :request do
   before { get '/posts' }
 
   it 'returns all posts' do
-    expect(JSON.parse(response.body)["posts"].size).to eq(5)
+    expect(JSON.parse(response.body)['posts'].size).to eq(5)
   end
 
   it 'returns status code 200' do
