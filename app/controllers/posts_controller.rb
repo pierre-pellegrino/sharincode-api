@@ -6,6 +6,7 @@ class PostsController < ApplicationController
   before_action :split_endpoints
 
   def index
+    render_filtered_results_list(Post.all.map(&:"#{@filter}"), 'posts') && return unless @filter.nil?
     @posts = []
     prepare_posts_list
     render_posts_list

@@ -1,6 +1,11 @@
 class ProfilesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index]
   before_action :set_user, only: [:show]
+  before_action :split_endpoints, only: [:index]
+
+  def index
+    render_filtered_results_list(User.all.map(&:"#{@filter}"), 'users')&& return unless @filter.nil?
+  end
 
   def show
     message = 'This is the profile you requested :'
