@@ -41,7 +41,7 @@ module ApplicationHelper
   end
   def render_filtered_results_list(results, model)
     render json: {
-      "#{model}_ids": results
+      "#{model}_#{@filter}s": results
     }
   end
 end
