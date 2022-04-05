@@ -5,12 +5,6 @@ module PostsHelper
     }
   end
 
-  def render_filtered_posts_list(results)
-    render json: {
-      posts_ids: results
-    }
-  end
-
   def error_no_snippet_given
     message = 'A post needs to contain at least one snippet to be created !'
     status = :precondition_failed

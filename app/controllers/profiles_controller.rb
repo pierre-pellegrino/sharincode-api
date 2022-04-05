@@ -1,12 +1,10 @@
 class ProfilesController < ApplicationController
-  include ProfilesHelper
-
   before_action :authenticate_user!, except: [:index]
   before_action :set_user, only: [:show]
   before_action :split_endpoints, only: [:index]
 
   def index
-    render_filtered_users_list(User.all.map(&:"#{@filter}")) && return unless @filter.nil?
+    render_filtered_results_list(User.all.map(&:"#{@filter}"), 'users')&& return unless @filter.nil?
   end
 
   def show
