@@ -37,5 +37,6 @@ module ApplicationHelper
             else
               1
             end
+    @filter = params[:filter]
   end
 end
