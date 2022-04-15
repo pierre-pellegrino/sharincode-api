@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
-  resources :profiles, only: %i[show]
+  resources :profiles, only: %i[show index]
   resource :profile, only: %i[show update destroy]
   resources :posts, only: %i[index show update create destroy] do
     resources :comments, only: %i[index update create destroy]

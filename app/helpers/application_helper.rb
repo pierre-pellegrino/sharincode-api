@@ -37,5 +37,11 @@ module ApplicationHelper
             else
               1
             end
+    @filter = params[:filter]
+  end
+  def render_filtered_results_list(results, model)
+    render json: {
+      "#{model}_#{@filter}s": results
+    }
   end
 end
